@@ -9,7 +9,7 @@ import { Home } from "./pages/Home";
 import { Vehicles } from "./pages/Vehicles";
 const Wrapper = styled.section`
   display:flex;
-  height: calc(100vh - 70px);
+  min-height: 100vh;
   `;
 const MainContainer = styled.section`
   flex-grow: 1;
