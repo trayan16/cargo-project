@@ -1,10 +1,13 @@
 
 import { NavLink } from 'react-router-dom';
 import styled from "styled-components";
+import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 const NavMenu = styled.div`
     display: flex;
     align-items: center;
@@ -18,49 +21,57 @@ const NavMenu = styled.div`
 const SidebarContainer = styled.section`
     width: 70px;
     background: #6f84bd;
-    border-radius: 6px;
+    border-radius: 26px;
     padding: 30px 16px;
     text-align: center;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-direction: column;
     a {
         color: #fff;
+        padding: 8px;
+        &.active {
+            
+            background: #9dabce;
+            border-radius: 6px;
+        }
     }
 `;
   export const Sidebar = () => {
   return (
       <SidebarContainer>
         <NavMenu>
-          <NavLink to='/'>
-            <HomeIcon fontSize="large" />
+        <Tooltip title="Home">
+            <NavLink to='/'>
+                <HomeIcon fontSize="medium" />
+            </NavLink>
+        </Tooltip>
+        <Tooltip title="About">
+            <NavLink to='/about'>
+            <DirectionsBoatIcon fontSize="medium"  />
           </NavLink>
-          <NavLink to='/'>
-            <DirectionsBoatIcon fontSize="large"  />
+        </Tooltip>
+        <Tooltip title="Containers">
+            <NavLink  to='/container'>
+            <LocalShippingIcon fontSize="medium"  />
           </NavLink>
-          <NavLink  to='/'>
-            <LocalShippingIcon fontSize="large"  />
+        </Tooltip>
+        <Tooltip title="Vehicles">
+                <NavLink to='/vehicles'>
+                    <DriveEtaIcon fontSize="medium"  />
+                </NavLink>
+        </Tooltip>
+        </NavMenu>
+        
+        {/* Bottom menu */}
+        <NavMenu>
+          <NavLink  to='/profile'>
+            <PersonIcon fontSize="medium"  />
           </NavLink>
-          <NavLink to='/'>
-            <DriveEtaIcon fontSize="large"  />
+          <NavLink to='/logout'>
+            <LogoutIcon fontSize="medium"  />
           </NavLink>
-          {/* <NavLink to='/events'>
-            Events
-          </NavLink>
-          <NavLink to='/annual'>
-            Annual Report
-          </NavLink>
-          <NavLink to='/team'>
-            Teams
-          </NavLink>
-          <NavLink to='/blogs'>
-            Blogs
-          </NavLink>
-          <NavLink to='/sign-up'>
-            Sign Up
-          </NavLink> */}
-          {/* Second Nav */}
-          {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
         </NavMenu>
       </SidebarContainer>
   );
