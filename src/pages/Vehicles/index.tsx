@@ -1,7 +1,9 @@
+import { useContext } from 'react';
 import { Chip } from "@mui/material";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
+import { WindowContext } from "../../context/WindowContextProvider";
 
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1 },
@@ -51,6 +53,8 @@ const rows = [
   { id: 12332, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
 ];
 export const Vehicles = () => {
+  const { clientWidth } = useContext(WindowContext);
+  console.log(clientWidth, "WIDTH")
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
