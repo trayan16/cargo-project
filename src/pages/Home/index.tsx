@@ -1,6 +1,9 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { BasicTable } from "../../components/BasicTable";
+import { Card } from '@mui/material';
 import {KPIChart} from "../../components/kpi";
+
 export const Home = () => {
     const cards = [
         {
@@ -37,15 +40,10 @@ export const Home = () => {
           );
         })}
       </Grid>
-      {/* <Grid marginTop={2} container spacing={4}>
-        {cards.map((item, index) => {
-          return (
-            <Grid key={item.title + index} item lg={3} sm={6} xl={3} xs={12}>
-              <KPIChart {...item} />
-            </Grid>
-          );
-        })}
-      </Grid> */}
+      <Grid marginTop={2} container spacing={4}>
+      <Grid item sm={8}><Card elevation={10}><BasicTable /></Card></Grid>
+      {/* <Grid item sm={6}><Card elevation={10}><BasicTable /></Card></Grid> */}
+      </Grid>
     </Box>
   );
 };
