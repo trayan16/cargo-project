@@ -34,7 +34,7 @@ useEffect(() => {
 }, [getVh, getVw]);
 return (
 <WindowContext.Provider value={{ clientHeight, clientWidth, }} >
-{children}
+    {children}
 </WindowContext.Provider>
 );
 };

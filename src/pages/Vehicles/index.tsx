@@ -1,20 +1,21 @@
 import { useContext } from 'react';
-import { Chip } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
+import BasicMenu from './ActionMenu';
 
 const columns: GridColDef[] = [
-  { field: 'vehicle', headerName: 'Vehicle', flex: 1 },
-  { field: 'status', headerName: 'Status', width: 100 },
+  { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
+  { field: 'status', headerName: 'Status', flex: 1 },
   {
     field: 'origin',
     align: 'left',
-    width: 200,
     headerAlign: 'left',
     headerName: 'Origin',
     type: 'string',
+    
     flex: 1
   },
   {
@@ -23,13 +24,28 @@ const columns: GridColDef[] = [
     flex: 1,
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
+    width: 150
   },
   {
     field: 'destination',
     headerName: 'Destination',
-    type: 'string',
+    type: 'string'
+  },
+  {
+    field: 'date',
+    sortable: false,
+    flex: 1,
+    headerName: 'Documents',
+    renderCell: (params: GridRenderCellParams<Date>) => (
+      renderDetailsButton(params)
+    ),
   },
 ];
+const renderDetailsButton = (params: any) => {
+  return (
+      <BasicMenu />
+  )
+}
 const rows = [
   { id: 1, status: 'Dispatched', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 2, status: 'Dispatched', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
@@ -91,6 +107,7 @@ export const Vehicles = () => {
             quickFilterProps: { debounceMs: 500 },
           },
         }}
+        disableSelectionOnClick
         sx={customScrollBar}
         rows={rows}
         columns={columns}
