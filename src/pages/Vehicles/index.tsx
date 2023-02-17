@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { Button, Chip } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import BasicMenu from './ActionMenu';
+import BarcodeScannerComponent from 'react-qr-barcode-scanner';
 
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
@@ -69,6 +70,8 @@ const rows = [
   { id: 12332, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
 ];
 export const Vehicles = () => {
+  const [data, setData] = React.useState<any>("Not Found");
+  const [start, setStart] = React.useState<boolean>(false);
   const { clientWidth } = useContext(WindowContext);
   console.log(clientWidth, "WIDTH")
   const handleClick = () => {
@@ -90,6 +93,19 @@ export const Vehicles = () => {
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Button onClick={() => setStart(!start)}>Start</Button>
+      {start && (
+        <BarcodeScannerComponent
+        width={500}
+        height={500}
+        onUpdate={(err, result) => {
+          if (result) setData(result);
+          else setData("Not Found");
+        }}
+      />
+      )}
+      
+      <p>{JSON.stringify(data)}</p>
       <div style={{marginBottom: 20, display: "flex", gap: 10}}>
         <Chip clickable onClick={handleClick} label="All" variant="outlined" />
         <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />

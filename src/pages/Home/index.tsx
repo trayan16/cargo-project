@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import { BasicTable } from "../../components/BasicTable";
 import { Card } from '@mui/material';
 import {KPIChart} from "../../components/kpi";
+import { useState } from "react";
 
 export const Home = () => {
     const cards = [
@@ -42,7 +43,12 @@ export const Home = () => {
       </Grid>
       <Grid marginTop={2} container spacing={4}>
       <Grid item sm={8}><Card elevation={10}><BasicTable /></Card></Grid>
-      {/* <Grid item sm={6}><Card elevation={10}><BasicTable /></Card></Grid> */}
+      <Grid item sm={6}>
+        <Card elevation={10}>
+          <>
+      </>
+        </Card>
+      </Grid>
       </Grid>
     </Box>
   );
