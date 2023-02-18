@@ -8,7 +8,7 @@ const HeaderContainer = styled.div`
     padding-bottom: 20px;
     margin-bottom: 20px;
     .header-action-items {
-        color: #033090;
+        color: ${({ theme }) => theme.textColor};
         div + div {
             border-left: 1px solid;
         }
@@ -19,7 +19,7 @@ const HeaderContainer = styled.div`
         width: 10px;
         height: 10px;
         justify-content: center;
-        padding: 5px;
+        padding: 10px;
         display: flex;
         align-items: center;
         color: #fff;
@@ -35,7 +35,7 @@ const DateContainer = styled.div`
 `
 const Greeting = styled.div`
     font-size: 36px;
-    color: #033090;
+    color: ${({ theme }) => theme.textColor};
     font-weight: 700;
     text-transform: uppercase;
 `

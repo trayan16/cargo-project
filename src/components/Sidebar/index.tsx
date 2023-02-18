@@ -11,14 +11,18 @@ import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Themes } from '../../App';
+import { useContext } from 'react';
+import { WindowContext } from '../../context/WindowContextProvider';
+import { mobileVersionWidth } from '../../utils';
 const NavMenu = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
+
     gap: 20px;
-    white-space: nowrap; */
-    @media screen and (max-width: 768px) {
-        display: none;
+    white-space: nowrap;
+    @media screen and (max-width: 900px) {
+        flex-direction:row
     }
 `;
 const SidebarContainer = styled.section`
@@ -31,6 +35,9 @@ const SidebarContainer = styled.section`
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
+    @media (max-width: 900px) {
+      width: 100%;
+    }
     a {
         color: #fff;
         padding: 8px;
@@ -46,33 +53,49 @@ const SidebarContainer = styled.section`
     theme: string;
   }
   export const Sidebar: React.FC<SidebarProps> = ({themeToggler, theme}) => {
-  return (
-      <SidebarContainer>
-        <NavMenu>
+  const { clientWidth } = useContext(WindowContext);
+  console.log(clientWidth, "WIDTH")
+  const renderTopMenu = () => {
+    return (
+      <NavMenu>
         <Tooltip title="Home">
-            <NavLink to='/'>
-                <HomeIcon fontSize="medium" />
-            </NavLink>
+          <NavLink to='/'>
+              <HomeIcon fontSize="medium" />
+          </NavLink>
         </Tooltip>
         <Tooltip title="Containers">
-            <NavLink to='/about'>
+          <NavLink to='/about'>
             <DirectionsBoatIcon fontSize="medium"  />
           </NavLink>
         </Tooltip>
         <Tooltip title="Trucks">
-            <NavLink  to='/container'>
+          <NavLink  to='/container'>
             <LocalShippingIcon fontSize="medium"  />
           </NavLink>
         </Tooltip>
         <Tooltip title="Vehicles">
-                <NavLink to='/vehicles'>
-                    <DriveEtaIcon fontSize="medium"  />
-                </NavLink>
+          <NavLink to='/vehicles'>
+              <DriveEtaIcon fontSize="medium"  />
+          </NavLink>
         </Tooltip>
-        </NavMenu>
-        
-        {/* Bottom menu */}
-        <NavMenu style={{ cursor: 'pointer' }}>
+        {clientWidth < mobileVersionWidth && (
+          <>
+            <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
+              {theme === Themes.LIGHT ? <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <LightModeIcon style={{ color: '#fff' }} fontSize="medium" />}
+            </Tooltip>
+            <NavLink to='/profile'>
+              <PersonIcon fontSize="medium" />
+            </NavLink><NavLink to='/logout'>
+              <LogoutIcon fontSize="medium" />
+            </NavLink>
+          </>
+        )}
+      </NavMenu>
+    )
+  }
+  const renderBottomMenu = () => {
+    return (
+      <NavMenu style={{ cursor: 'pointer' }}>
           <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
             {theme === Themes.LIGHT ? <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <LightModeIcon style={{ color: '#fff' }} fontSize="medium" />}
           </Tooltip>
@@ -82,7 +105,15 @@ const SidebarContainer = styled.section`
           <NavLink to='/logout'>
             <LogoutIcon fontSize="medium"  />
           </NavLink>
-        </NavMenu>
+      </NavMenu>
+    )
+  }
+  return (
+      <SidebarContainer>
+        {renderTopMenu()}
+        
+        {/* Bottom menu */}
+        {clientWidth > mobileVersionWidth && renderBottomMenu()}
       </SidebarContainer>
   );
   }

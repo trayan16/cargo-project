@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import styled from "styled-components";
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
@@ -13,6 +14,9 @@ import { Vehicles } from "./pages/Vehicles";
 const Wrapper = styled.section`
   display: flex;
   min-height: 100vh;
+  @media (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 const MainContainer = styled.section`
   flex-grow: 1;
@@ -44,6 +48,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme === Themes.LIGHT ? lightTheme : darkTheme}>
       <MuiThemeProvider theme={theme === Themes.DARK ? darkThemeMui : lightThemeMui}>
+        <CssBaseline />
       <>
         <GlobalStyles />
         <Wrapper>
