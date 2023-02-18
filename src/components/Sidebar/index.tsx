@@ -20,7 +20,7 @@ const NavMenu = styled.div`
 `;
 const SidebarContainer = styled.section`
     width: 70px;
-    background: #6f84bd;
+    background-image: linear-gradient(to top,#1d1e20,#043bc7);
     border-radius: 26px;
     padding: 30px 16px;
     text-align: center;
@@ -47,12 +47,12 @@ const SidebarContainer = styled.section`
                 <HomeIcon fontSize="medium" />
             </NavLink>
         </Tooltip>
-        <Tooltip title="About">
+        <Tooltip title="Containers">
             <NavLink to='/about'>
             <DirectionsBoatIcon fontSize="medium"  />
           </NavLink>
         </Tooltip>
-        <Tooltip title="Containers">
+        <Tooltip title="Trucks">
             <NavLink  to='/container'>
             <LocalShippingIcon fontSize="medium"  />
           </NavLink>

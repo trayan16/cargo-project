@@ -5,7 +5,6 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import BasicMenu from './ActionMenu';
-import BarcodeScannerComponent from 'react-qr-barcode-scanner';
 
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
@@ -95,14 +94,7 @@ export const Vehicles = () => {
     <Box sx={{ flexGrow: 1 }}>
       <Button onClick={() => setStart(!start)}>Start</Button>
       {start && (
-        <BarcodeScannerComponent
-        width={500}
-        height={500}
-        onUpdate={(err, result) => {
-          if (result) setData(result);
-          else setData("Not Found");
-        }}
-      />
+        "SHOW BARCODE SCANNER"
       )}
       
       <p>{JSON.stringify(data)}</p>

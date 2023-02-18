@@ -7,9 +7,10 @@ const KPIContainer = styled.div`
     font-family: "Anton";
     .cardHeader {
       font-family: "Anton";
+      color: #363a3f;
     }
     .line-progress {
-      color: #6f84bd;
+      color: #033090;
     }
 `;
 export const KPIChart = (props: any) => {

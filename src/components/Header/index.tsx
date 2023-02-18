@@ -8,7 +8,7 @@ const HeaderContainer = styled.div`
     padding-bottom: 20px;
     margin-bottom: 20px;
     .header-action-items {
-        color: #6f84bd;
+        color: #033090;
         div + div {
             border-left: 1px solid;
         }
@@ -30,12 +30,12 @@ const HeaderContainer = styled.div`
 `;
 const Date = styled.div`
     font-size: 24px;
-    color: #c3c6cb;
+    color: #363a3f;
     font-weight: 400;
 `
 const Greeting = styled.div`
     font-size: 36px;
-    color: #46494e;
+    color: #033090;
     font-weight: 700;
     text-transform: uppercase;
 `
