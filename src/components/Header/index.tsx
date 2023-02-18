@@ -28,9 +28,9 @@ const HeaderContainer = styled.div`
         top: -7px;
     }
 `;
-const Date = styled.div`
+const DateContainer = styled.div`
     font-size: 24px;
-    color: #363a3f;
+    color: ${({ theme }) => theme.textColor};
     font-weight: 400;
 `
 const Greeting = styled.div`
@@ -44,11 +44,13 @@ const ProfileName = styled.section`
 const ProfileRole = styled.section`
 `;
 export const Header = (props: any) => {
+    const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const today  = new Date();
     return (
       <HeaderContainer>
         <Grid justifyContent="space-between" container spacing={4}>
             <Grid item sm={12} md={6}>
-                <Date>Wednesday, 12 October</Date>
+                <DateContainer>{today.toLocaleDateString("en-US", options)}</DateContainer>
                 <Greeting>Good Morning!</Greeting>
             </Grid>
             <Grid className='header-action-items' alignItems="center" style={{display: "flex"}}  container item sm={12} md={6}>

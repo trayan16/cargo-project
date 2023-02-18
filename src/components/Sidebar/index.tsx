@@ -74,7 +74,7 @@ const SidebarContainer = styled.section`
         {/* Bottom menu */}
         <NavMenu style={{ cursor: 'pointer' }}>
           <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
-            {theme === Themes.LIGHT ? <LightModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" />}
+            {theme === Themes.LIGHT ? <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <LightModeIcon style={{ color: '#fff' }} fontSize="medium" />}
           </Tooltip>
           <NavLink  to='/profile'>
             <PersonIcon fontSize="medium"  />

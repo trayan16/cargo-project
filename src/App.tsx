@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import styled from "styled-components";
 import { Header } from "./components/Header";
 import { Sidebar } from "./components/Sidebar";
@@ -21,6 +22,16 @@ export const Themes = {
   DARK: 'dark',
   LIGHT: 'light'
 }
+const darkThemeMui = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+const lightThemeMui = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
 export const App = () => {
   const [theme, setTheme] = useState<string>(localStorage.getItem('prefferDarkMode') === "1" ? Themes.DARK : Themes.LIGHT);
   const themeToggler = () => {
@@ -32,6 +43,7 @@ export const App = () => {
   }, [theme])
   return (
     <ThemeProvider theme={theme === Themes.LIGHT ? lightTheme : darkTheme}>
+      <MuiThemeProvider theme={theme === Themes.DARK ? darkThemeMui : lightThemeMui}>
       <>
         <GlobalStyles />
         <Wrapper>
@@ -47,6 +59,7 @@ export const App = () => {
           </WindowContextProvider>
         </Wrapper>
       </>
+      </MuiThemeProvider>
     </ThemeProvider>
   );
 };

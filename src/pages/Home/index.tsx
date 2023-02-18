@@ -3,7 +3,6 @@ import Grid from "@mui/material/Grid";
 import { BasicTable } from "../../components/BasicTable";
 import { Card } from '@mui/material';
 import {KPIChart} from "../../components/kpi";
-import { useState } from "react";
 
 export const Home = () => {
     const cards = [
@@ -35,7 +34,7 @@ export const Home = () => {
       <Grid container spacing={4}>
         {cards.map((item, index) => {
           return (
-            <Grid key={item.title + index} item lg={3} sm={6} xl={3} xs={12}>
+            <Grid className="card"  key={item.title + index} item lg={3} sm={6} xl={3} xs={12}>
               <KPIChart {...item} />
             </Grid>
           );

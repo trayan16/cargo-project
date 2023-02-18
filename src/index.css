@@ -5,7 +5,7 @@
 html {
   height: 100%;
   padding: 10px;
-  background: #dbdcfb;
+  background-image: linear-gradient(to top,#1d1e20,#043bc7);
 }
 #root {
   min-height: 100vh;
