@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import { Header } from "./components/Header";
@@ -33,11 +33,10 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme === Themes.LIGHT ? lightTheme : darkTheme}>
       <>
-      <button onClick={themeToggler}>Switch Theme</button>
         <GlobalStyles />
         <Wrapper>
           <WindowContextProvider>
-            <Sidebar />
+            <Sidebar theme={theme} themeToggler={themeToggler} />
             <MainContainer>
               <Header />
               <Routes>

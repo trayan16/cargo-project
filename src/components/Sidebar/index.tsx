@@ -5,9 +5,12 @@ import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DriveEtaIcon from '@mui/icons-material/DriveEta';
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Themes } from '../../App';
 const NavMenu = styled.div`
     display: flex;
     align-items: center;
@@ -38,7 +41,11 @@ const SidebarContainer = styled.section`
         }
     }
 `;
-  export const Sidebar = () => {
+  interface SidebarProps {
+    themeToggler: () => void;
+    theme: string;
+  }
+  export const Sidebar: React.FC<SidebarProps> = ({themeToggler, theme}) => {
   return (
       <SidebarContainer>
         <NavMenu>
@@ -65,7 +72,10 @@ const SidebarContainer = styled.section`
         </NavMenu>
         
         {/* Bottom menu */}
-        <NavMenu>
+        <NavMenu style={{ cursor: 'pointer' }}>
+          <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
+            {theme === Themes.LIGHT ? <LightModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" />}
+          </Tooltip>
           <NavLink  to='/profile'>
             <PersonIcon fontSize="medium"  />
           </NavLink>
