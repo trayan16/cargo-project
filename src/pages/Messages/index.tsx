@@ -16,7 +16,7 @@ const MessagesComponent = styled.div`
 `;
 export interface MessagesProps {
   open: boolean;
-  onClose: (value: string) => void;
+  onClose: () => void;
 }
 export interface IMessage {
   id: number;

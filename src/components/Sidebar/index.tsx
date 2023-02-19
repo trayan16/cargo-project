@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled from "styled-components";
 import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
+import SettingsIcon from '@mui/icons-material/Settings';
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -97,12 +98,19 @@ const SidebarContainer = styled.section`
   const renderBottomMenu = () => {
     return (
       <NavMenu style={{ cursor: 'pointer' }}>
+          <Tooltip title="Settings">
+            <NavLink  to='/Settings'>
+              <SettingsIcon fontSize="medium" />
+            </NavLink>
+          </Tooltip>
           <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
             {theme === Themes.LIGHT ? <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <LightModeIcon style={{ color: '#fff' }} fontSize="medium" />}
           </Tooltip>
-          <NavLink  to='/profile'>
-            <PersonIcon fontSize="medium"  />
-          </NavLink>
+          <Tooltip title="Profile">
+            <NavLink  to='/profile'>
+              <PersonIcon fontSize="medium"  />
+            </NavLink>
+          </Tooltip>
           <NavLink to='/logout'>
             <LogoutIcon fontSize="medium"  />
           </NavLink>

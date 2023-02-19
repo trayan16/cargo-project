@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, Menu, MenuItem } from '@mui/material';
+import { Grid } from '@mui/material';
 import styled from "styled-components";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MessageIcon from '@mui/icons-material/Message';
@@ -58,9 +58,9 @@ export const Header = (props: any) => {
         setOpenMessages(true);
       };
     
-      const handleCloseMessages = (value: string) => {
+    const closeMessages = () => {
         setOpenMessages(false);
-      };
+    };
     const greetingText = React.useMemo(() => {
         const hrs = new Date().getHours();
 
@@ -99,34 +99,12 @@ export const Header = (props: any) => {
                 </Grid>
                 <Grid alignItems="center" style={{display: "flex"}}  item ><LocationOnIcon  fontSize="large"  /> Chateauguay</Grid>
                 <Grid alignItems="center" item >
-                {/* <Button
-                    id="basic-button"
-                    aria-controls={open ? 'basic-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}
-                >
-                    Dashboard
-                </Button> */}
-                <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                    }}
-                >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
                 </Grid>
             </Grid>
         </Grid>
         <Messages
         open={openMessages}
-        onClose={handleClose}
+        onClose={closeMessages}
         />
       </HeaderContainer>
     );
