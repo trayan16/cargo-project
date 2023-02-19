@@ -23,6 +23,7 @@ export interface IMessage {
   vehicle: string;
   vin: string;
   message: string;
+  date: string;
   unread: boolean;
 }
 const rows: IMessage[] = [
@@ -31,6 +32,7 @@ const rows: IMessage[] = [
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
     message: "AT_TERMINAL",
+    date: "19-02-2023 11:45AM",
     unread: true,
   },
   {
@@ -38,6 +40,7 @@ const rows: IMessage[] = [
     vehicle: "VW GOLF 2020",
     vin: "JH4NA1261PT000302",
     message: "DELIVERED",
+    date: "19-02-2023 11:45AM",
     unread: false,
   },
   {
@@ -45,6 +48,31 @@ const rows: IMessage[] = [
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
     message: "DELIVERED",
+    date: "19-02-2023 11:45AM",
+    unread: false,
+  },
+  {
+    id: 4,
+    vehicle: "BMW X3 2020",
+    vin: "JH4NA1261PT000302",
+    message: "DELIVERED",
+    date: "19-02-2023 11:45AM",
+    unread: false,
+  },
+  {
+    id: 5,
+    vehicle: "BMW X3 2020",
+    vin: "JH4NA1261PT000302",
+    message: "DELIVERED",
+    date: "19-02-2023 11:45AM",
+    unread: false,
+  },
+  {
+    id: 6,
+    vehicle: "BMW X3 2020",
+    vin: "JH4NA1261PT000302",
+    message: "DELIVERED",
+    date: "22-02-2023 11:45AM",
     unread: false,
   },
 ];
@@ -56,13 +84,14 @@ export const Messages: React.FC<MessagesProps> = ({ open, onClose }) => {
     return `Vehicle status was changed to ${VEHICLE_STATUSES[status]}`;
   };
   const columns: GridColDef[] = [
+    { field: "date", headerName: "Date/Time", flex: 1, type: "date", width: 200 },
     { field: "vehicle", headerName: "Vehicle", flex: 1 },
     {
       field: "vin",
       headerName: "VIN",
       flex: 1,
       sortable: false,
-      width: 180,
+      width: 200,
     },
     {
       field: "message",
@@ -77,7 +106,7 @@ export const Messages: React.FC<MessagesProps> = ({ open, onClose }) => {
   ];
   return (
     <MessagesComponent>
-      <Dialog fullWidth onClose={onClose} open={open}>
+      <Dialog fullWidth maxWidth={"md"} onClose={onClose} open={open}>
         <DialogTitle>Messages</DialogTitle>
         <div style={{ height: 400, width: "100%" }}>
           <DataGrid
@@ -88,7 +117,6 @@ export const Messages: React.FC<MessagesProps> = ({ open, onClose }) => {
               cellClassName: ({ row }) => (row.unread ? "unread" : ""),
             }))}
             pageSize={5}
-            rowsPerPageOptions={[5, 10, 20, 50]}
           />
         </div>
       </Dialog>
