@@ -21,6 +21,9 @@ const Wrapper = styled.section`
 const MainContainer = styled.section`
   flex-grow: 1;
   padding: 20px 16px 30px 16px;
+  .cardHeader {
+    font-family: Anton;
+  }
 `;
 export const Themes = {
   DARK: 'dark',

@@ -41,7 +41,7 @@ export const Home = () => {
         })}
       </Grid>
       <Grid marginTop={2} container spacing={4}>
-      <Grid item sm={8}><Card elevation={10}><BasicTable /></Card></Grid>
+      <Grid item xs={12} lg={8}><Card elevation={10}><BasicTable /></Card></Grid>
       <Grid item sm={6}>
         <Card elevation={10}>
           <>

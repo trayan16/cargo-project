@@ -1,9 +1,10 @@
 import React from "react";
-import { Grid } from '@mui/material';
+import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import styled from "styled-components";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import MessageIcon from '@mui/icons-material/Message';
 import { mobileVersionWidth } from '../../utils';
+import { Messages } from "../../pages/Messages";
 const HeaderContainer = styled.div`
     
     border-bottom: 2px solid #ededed;
@@ -18,7 +19,8 @@ const HeaderContainer = styled.div`
             justify-content: space-around;
         }
     }
-    span {
+`;
+const MessageCounter = styled.span`
         background-color: red;
         border-radius: 50%;
         width: 10px;
@@ -31,8 +33,7 @@ const HeaderContainer = styled.div`
         position: absolute;
         right: 16px;
         top: -7px;
-    }
-`;
+`
 const DateContainer = styled.div`
     font-size: 24px;
     color: ${({ theme }) => theme.textColor};
@@ -52,6 +53,14 @@ export const Header = (props: any) => {
     
     const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const today  = new Date();
+    const [openMessages, setOpenMessages] = React.useState(false);
+    const handleOpenMessages = () => {
+        setOpenMessages(true);
+      };
+    
+      const handleCloseMessages = (value: string) => {
+        setOpenMessages(false);
+      };
     const greetingText = React.useMemo(() => {
         const hrs = new Date().getHours();
 
@@ -63,7 +72,15 @@ export const Header = (props: any) => {
         else if (hrs >= 17 && hrs <= 24)
         greet = 'Good Evening';
         return greet;
-    }, [])
+    }, []);
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     return (
       <HeaderContainer>
         <Grid justifyContent="space-between" container spacing={4}>
@@ -71,18 +88,46 @@ export const Header = (props: any) => {
                 <DateContainer>{today.toLocaleDateString("en-US", options)}</DateContainer>
                 <Greeting>{greetingText}</Greeting>
             </Grid>
-            <Grid className='header-action-items' alignItems="center" style={{display: "flex"}} lg={4} xl={4} item sm={12} md={6}>
+            <Grid className='header-action-items' alignItems="center" style={{display: "flex"}} lg={4} item xs={12} md={6}>
                 <Grid textAlign="right" style={{paddingRight: 10}} item>
                     <ProfileName>Tsvetan Mitev</ProfileName>
                     <ProfileRole>Manager</ProfileRole>
                 </Grid>
                 <Grid item justifyContent="center" display="flex" position="relative">
-                    <MessageIcon fontSize="large"  />
-                    <span>2</span>
+                    <MessageIcon onClick={handleOpenMessages} fontSize="large"  />
+                    <MessageCounter>2</MessageCounter>
                 </Grid>
                 <Grid alignItems="center" style={{display: "flex"}}  item ><LocationOnIcon  fontSize="large"  /> Chateauguay</Grid>
+                <Grid alignItems="center" item >
+                {/* <Button
+                    id="basic-button"
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                >
+                    Dashboard
+                </Button> */}
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose}>My account</MenuItem>
+                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                </Menu>
+                </Grid>
             </Grid>
         </Grid>
+        <Messages
+        open={openMessages}
+        onClose={handleClose}
+        />
       </HeaderContainer>
     );
 };
