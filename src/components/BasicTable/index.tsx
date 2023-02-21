@@ -50,7 +50,7 @@ export const BasicTable = () => {
         <TableContainer component={Paper}>
           <TableTitle>
             <Typography fontSize={24} className="cardHeader" color="textSecondary" gutterBottom variant="body2">
-              Last 3 Orders
+              LAST 3 ORDERS
             </Typography>
           </TableTitle>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
