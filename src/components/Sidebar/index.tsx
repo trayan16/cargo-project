@@ -22,9 +22,9 @@ const NavMenu = styled.div`
 
     gap: 20px;
     white-space: nowrap;
-    @media screen and (max-width: 900px) {
+    @media screen and (max-width: ${mobileVersionWidth}px) {
         flex-direction:row;
-        gap: 10px;
+        gap: 17px;
     }
 `;
 const SidebarContainer = styled.section`
@@ -37,7 +37,11 @@ const SidebarContainer = styled.section`
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-    @media (max-width: 900px) {
+    @media screen and (max-width: ${mobileVersionWidth}px) {
+      border-radius: 0;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
       width: 100%;
     }
     a {
