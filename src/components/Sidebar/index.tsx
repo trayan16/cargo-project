@@ -24,7 +24,7 @@ const NavMenu = styled.div`
     white-space: nowrap;
     @media screen and (max-width: ${mobileVersionWidth}px) {
         flex-direction:row;
-        gap: 17px; 
+        gap: 17px;
     }
 `;
 const SidebarContainer = styled.section`
