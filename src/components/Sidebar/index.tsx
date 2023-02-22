@@ -70,12 +70,12 @@ const SidebarContainer = styled.section`
           </NavLink>
         </Tooltip>
         <Tooltip title="Containers">
-          <NavLink to='/about'>
+          <NavLink to='/containers'>
             <DirectionsBoatIcon fontSize="medium"  />
           </NavLink>
         </Tooltip>
         <Tooltip title="Trucks">
-          <NavLink  to='/container'>
+          <NavLink  to='/trucks'>
             <LocalShippingIcon fontSize="medium"  />
           </NavLink>
         </Tooltip>

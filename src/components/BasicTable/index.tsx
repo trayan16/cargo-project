@@ -4,7 +4,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
 const BasicTableContainer = styled.div`
@@ -15,9 +14,6 @@ const BasicTableContainer = styled.div`
     table-layout: "fixed";
   }
 `;
-const TableTitle = styled.div`
-  padding: 16px;
-`
 function createData(
   status: string,
   vehicle: string,
@@ -47,12 +43,10 @@ export const BasicTable = () => {
   return (
     <BasicTableContainer>
       <div className="innerContainer">
-        <TableContainer component={Paper}>
-          <TableTitle>
+        <TableContainer >
             <Typography fontSize={24} className="cardHeader" color="textSecondary" gutterBottom variant="body2">
               LAST 3 ORDERS
             </Typography>
-          </TableTitle>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>

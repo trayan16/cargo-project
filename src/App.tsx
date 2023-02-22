@@ -11,6 +11,7 @@ import { GlobalStyles } from "./components/globalStyles";
 import { lightTheme, darkTheme } from "./components/Themes";
 import { Home } from "./pages/Home";
 import { Vehicles } from "./pages/Vehicles";
+import { Trucks } from "./pages/Trucks";
 const Wrapper = styled.section`
   display: flex;
   min-height: 100vh;
@@ -62,6 +63,7 @@ export const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/vehicles" element={<Vehicles />} />
+                <Route path="/trucks" element={<Trucks />} />
               </Routes>
             </MainContainer>
           </WindowContextProvider>

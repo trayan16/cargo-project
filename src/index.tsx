@@ -10,10 +10,12 @@ import { mobileVersionWidth } from "./utils";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 const GlobalStyle = createGlobalStyle`
   body {
+    font-family: "Anton";
     @media screen and (max-width: ${mobileVersionWidth}px) {
       padding: 0;
     }
-  }`;
+  }
+  `;
 root.render(
   <React.StrictMode>
     <GlobalStyle />

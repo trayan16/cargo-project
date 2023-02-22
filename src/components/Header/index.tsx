@@ -12,9 +12,7 @@ const HeaderContainer = styled.div`
     margin-bottom: 20px;
     .header-action-items {
         color: ${({ theme }) => theme.textColor};
-        div + div {
-            border-left: 1px solid;
-        }
+
         @media screen and (max-width: ${mobileVersionWidth}px) {
             justify-content: space-around;
         }

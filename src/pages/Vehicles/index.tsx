@@ -5,7 +5,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import BasicMenu from './ActionMenu';
-
+import axiosIntance from '../../axiosInstance';
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
   { field: 'status', headerName: 'Status', flex: 1 },
@@ -72,24 +72,19 @@ export const Vehicles = () => {
   const [data, setData] = React.useState<any>("Not Found");
   const [start, setStart] = React.useState<boolean>(false);
   const { clientWidth } = useContext(WindowContext);
+  // const getVehicles = async () => {
+  //   const res = await axiosIntance.get('/trucks');
+  //   console.log(res, "RES")
+  // }
+  React.useEffect(() => {
+    // getVehicles();
+    console.log("VEHICLES")
+  }, [])
   console.log(clientWidth, "WIDTH")
+  
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
-  const customScrollBar = {
-    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar': {
-      width: '0.4em',
-    },
-    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-track': {
-      background: '#f1f1f1',
-    },
-    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb': {
-      backgroundColor: '#888',
-    },
-    '& .MuiDataGrid-virtualScroller::-webkit-scrollbar-thumb:hover': {
-      background: '#555',
-    },
-  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Button onClick={() => setStart(!start)}>Start</Button>
@@ -116,7 +111,6 @@ export const Vehicles = () => {
           },
         }}
         disableSelectionOnClick
-        sx={customScrollBar}
         rows={rows}
         columns={columns}
         pageSize={15}

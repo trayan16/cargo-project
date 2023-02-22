@@ -5,9 +5,6 @@ import CountUp from 'react-countup';
 import { Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
 const KPIContainer = styled.div`
     font-family: "Anton";
-    .cardHeader {
-      font-family: "Anton";
-    }
 `;
 export const KPIChart = (props: any) => {
   const { title, progress, duration, value } = props;
