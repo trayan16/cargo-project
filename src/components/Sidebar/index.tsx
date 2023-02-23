@@ -75,6 +75,13 @@ const IconHolder = styled.div`
               </IconHolder>
           </NavLink>
         </Tooltip>
+        <Tooltip title="Vehicles">
+          <NavLink to='/vehicles'>
+              <IconHolder>
+                <DriveEtaIcon fontSize="medium"  />
+              </IconHolder>
+          </NavLink>
+        </Tooltip>
         <Tooltip title="Containers">
           <NavLink to='/containers'>
             <IconHolder>
@@ -87,14 +94,6 @@ const IconHolder = styled.div`
             <IconHolder>
               <LocalShippingIcon fontSize="medium"  />
             </IconHolder>
-          </NavLink>
-          
-        </Tooltip>
-        <Tooltip title="Vehicles">
-          <NavLink to='/vehicles'>
-              <IconHolder>
-                <DriveEtaIcon fontSize="medium"  />
-              </IconHolder>
           </NavLink>
         </Tooltip>
         {clientWidth < mobileVersionWidth && (

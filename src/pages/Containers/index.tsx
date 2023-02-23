@@ -6,61 +6,65 @@ import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import axiosIntance from '../../axiosInstance';
 import BasicMenu from '../Vehicles/ActionMenu';
+import { TRUCK_STATUSES } from '../../utils';
 const columns: GridColDef[] = [
   { 
-    field: 'model',
-    headerName: 'Vehicle',
+    field: 'status',
+    headerName: 'Status',
     flex: 1,
-    valueGetter: (params) => {
-        console.log("TEST")
-        const {model} = params.row.vehicle
-        return model;
-      }
   },
-  { field: 'status', headerName: 'Status', flex: 1 },
+  { field: 'containerNumber', headerName: 'Container number', flex: 1 },
   {
-    field: 'origin',
+    field: 'shippingLine',
     align: 'left',
     headerAlign: 'left',
-    headerName: 'Origin',
+    headerName: 'Shipping line',
     type: 'string',
     
     flex: 1
   },
   {
-    field: 'created',
-    headerName: 'Created',
+    field: 'expectedDate',
+    headerName: 'Expected date',
     flex: 1,
     description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 150
   },
   {
-    field: 'destination',
-    headerName: 'Destination',
+    field: 'documents',
+    headerName: 'Documents',
     type: 'string'
   },
   {
-    field: 'date',
+    field: 'vehicles',
     sortable: false,
     flex: 1,
-    headerName: 'Documents',
-    renderCell: (params: GridRenderCellParams<Date>) => (
-      renderDetailsButton(params)
+    headerName: 'Loaded vehicles',
+    renderCell: () => (
+        Math.floor(Math.random() * 10)
     ),
   },
 ];
+interface IContainer {
+    id: string;
+    status: TRUCK_STATUSES,
+    containerNumber: string,
+    shippingLine: string,
+    expectedDate: string;
+    documents: string[];
+    vehicles: string[];
+  }
 const renderDetailsButton = (params: any) => {
   return (
       <BasicMenu />
   )
 }
-const rows = [
-  { id: 1, status: 'Dispatched', vehicle: { model: "bmw"}, origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-];
-interface IContainer {
-    id: string;
-}
+const rows: IContainer[] = [
+    { id: "1", status: TRUCK_STATUSES.DELIVERED, containerNumber: "CB2222AM", shippingLine: "Vin Trade", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+    { id: "2", status: TRUCK_STATUSES.DISPATCHED, containerNumber: "B2222AM", shippingLine: "Alco Impex", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+    { id: "3", status: TRUCK_STATUSES.LOADED, containerNumber: "A2222AM", shippingLine: "Smart", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+  ];
 export const Containers = () => {
   const { clientWidth } = useContext(WindowContext);
   const getContainers = async () => {
