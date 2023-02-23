@@ -7,3 +7,8 @@ export const VEHICLE_STATUSES: IVehicleStatus = {
     "DISPATCHED" : "Dispatched",
     "DELIVERED" : "Delivered",
 }
+export enum TRUCK_STATUSES {
+    "LOADED" = "Loaded",
+    "DISPATCHED" = "Dispatched",
+    "DELIVERED" = "Delivered",
+}

@@ -35,7 +35,9 @@ const columns: GridColDef[] = [
   },
 ];
 const rows = [
-  { id: 1, username: 'admin', name: "Tsvetan Mitev", origin: "Texas", lastLogin: "01-02-2022", role: "Admin" },
+  { id: 1, username: 'tmitev', name: "Tsvetan Mitev", origin: "Sofia, Bulgaria", lastLogin: "01-02-2022", role: "Admin" },
+  { id: 2, username: 'vteneva', name: "Violeta Teneva", origin: "Sofia, Bulgaria", lastLogin: "22-02-2022", role: "Admin" },
+  { id: 3, username: 'tstoyanov', name: "Trayan Stoyanov", origin: "Varna, Bulgaria", lastLogin: "22-02-2022", role: "Admin" },
 ];
 interface IUser {
     id: string;

@@ -78,9 +78,7 @@ const rows: IMessage[] = [
 ];
 export const Messages: React.FC<MessagesProps> = ({ open, onClose }) => {
   const { clientWidth } = useContext(WindowContext);
-  console.log(clientWidth, "WIDTH");
   const renderVehicleStatus = (status: string) => {
-    console.log(status, "STATUS");
     return `Vehicle status was changed to ${VEHICLE_STATUSES[status]}`;
   };
   const columns: GridColDef[] = [

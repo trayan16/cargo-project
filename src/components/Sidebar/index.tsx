@@ -54,6 +54,10 @@ const SidebarContainer = styled.section`
         }
     }
 `;
+const IconHolder = styled.div`
+    display: flex;
+    align-items: center;
+`
   interface SidebarProps {
     themeToggler: () => void;
     theme: string;
@@ -66,33 +70,48 @@ const SidebarContainer = styled.section`
       <NavMenu>
         <Tooltip title="Home">
           <NavLink to='/'>
-              <HomeIcon fontSize="medium" />
+              <IconHolder>
+                <HomeIcon fontSize="medium" />
+              </IconHolder>
           </NavLink>
         </Tooltip>
         <Tooltip title="Containers">
           <NavLink to='/containers'>
-            <DirectionsBoatIcon fontSize="medium"  />
+            <IconHolder>
+              <DirectionsBoatIcon fontSize="medium"  />
+            </IconHolder>
           </NavLink>
         </Tooltip>
         <Tooltip title="Trucks">
           <NavLink  to='/trucks'>
-            <LocalShippingIcon fontSize="medium"  />
+            <IconHolder>
+              <LocalShippingIcon fontSize="medium"  />
+            </IconHolder>
           </NavLink>
+          
         </Tooltip>
         <Tooltip title="Vehicles">
           <NavLink to='/vehicles'>
-              <DriveEtaIcon fontSize="medium"  />
+              <IconHolder>
+                <DriveEtaIcon fontSize="medium"  />
+              </IconHolder>
           </NavLink>
         </Tooltip>
         {clientWidth < mobileVersionWidth && (
           <>
             <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
+              <IconHolder>
               {theme === Themes.LIGHT ? <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <LightModeIcon style={{ color: '#fff' }} fontSize="medium" />}
+              </IconHolder>
             </Tooltip>
             <NavLink to='/profile'>
-              <PersonIcon fontSize="medium" />
+              <IconHolder> 
+                <PersonIcon fontSize="medium" />
+              </IconHolder>
             </NavLink><NavLink to='/logout'>
-              <LogoutIcon fontSize="medium" />
+              <IconHolder>
+                <LogoutIcon fontSize="medium" />
+              </IconHolder>
             </NavLink>
           </>
         )}

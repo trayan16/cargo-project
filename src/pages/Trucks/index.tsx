@@ -6,44 +6,40 @@ import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import axiosIntance from '../../axiosInstance';
 import BasicMenu from '../Vehicles/ActionMenu';
+import { TRUCK_STATUSES } from '../../utils';
 const columns: GridColDef[] = [
   { 
-    field: 'model',
-    headerName: 'Vehicle',
+    field: 'status',
+    headerName: 'Status',
     flex: 1,
-    valueGetter: (params) => {
-        const {model} = params.row.vehicle
-        return model;
-      }
   },
-  { field: 'status', headerName: 'Status', flex: 1 },
+  { field: 'plateNumber', headerName: 'Plate number', flex: 1 },
   {
-    field: 'origin',
+    field: 'company',
     align: 'left',
     headerAlign: 'left',
-    headerName: 'Origin',
+    headerName: 'Company',
     type: 'string',
     
     flex: 1
   },
   {
-    field: 'created',
-    headerName: 'Created',
+    field: 'expectedDate',
+    headerName: 'Expected date',
     flex: 1,
-    description: 'This column has a value getter and is not sortable.',
     sortable: false,
     width: 150
   },
   {
-    field: 'destination',
-    headerName: 'Destination',
+    field: 'documents',
+    headerName: 'Documents',
     type: 'string'
   },
   {
-    field: 'date',
+    field: 'vehicles',
     sortable: false,
     flex: 1,
-    headerName: 'Documents',
+    headerName: 'Vehicles',
     renderCell: (params: GridRenderCellParams<Date>) => (
       renderDetailsButton(params)
     ),
@@ -54,12 +50,21 @@ const renderDetailsButton = (params: any) => {
       <BasicMenu />
   )
 }
-const rows = [
-  { id: 1, status: 'Dispatched', vehicle: { model: "bmw"}, origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-];
+
 interface ITruck {
-    id: string;
+  id: string;
+  status: TRUCK_STATUSES,
+  plateNumber: string,
+  company: string,
+  expectedDate: string;
+  documents: string[];
+  vehicles: string[];
 }
+const rows: ITruck[] = [
+  { id: "1", status: TRUCK_STATUSES.DELIVERED, plateNumber: "CB2222AM", company: "Vin Trade", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+  { id: "2", status: TRUCK_STATUSES.DISPATCHED, plateNumber: "B2222AM", company: "Alco Impex", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+  { id: "3", status: TRUCK_STATUSES.LOADED, plateNumber: "A2222AM", company: "Smart", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+];
 export const Trucks = () => {
   const { clientWidth } = useContext(WindowContext);
   const getTrucks = async () => {
