@@ -12,6 +12,8 @@ import { lightTheme, darkTheme } from "./components/Themes";
 import { Home } from "./pages/Home";
 import { Vehicles } from "./pages/Vehicles";
 import { Trucks } from "./pages/Trucks";
+import { Containers } from "./pages/Containers";
+import { Users } from "./pages/users";
 const Wrapper = styled.section`
   display: flex;
   min-height: 100vh;
@@ -64,6 +66,8 @@ export const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/vehicles" element={<Vehicles />} />
                 <Route path="/trucks" element={<Trucks />} />
+                <Route path="/containers" element={<Containers />} />
+                <Route path="/users" element={<Users />} />
               </Routes>
             </MainContainer>
           </WindowContextProvider>

@@ -12,6 +12,7 @@ const columns: GridColDef[] = [
     headerName: 'Vehicle',
     flex: 1,
     valueGetter: (params) => {
+        console.log("TEST")
         const {model} = params.row.vehicle
         return model;
       }
@@ -57,17 +58,17 @@ const renderDetailsButton = (params: any) => {
 const rows = [
   { id: 1, status: 'Dispatched', vehicle: { model: "bmw"}, origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
 ];
-interface ITruck {
+interface IContainer {
     id: string;
 }
-export const Trucks = () => {
+export const Containers = () => {
   const { clientWidth } = useContext(WindowContext);
-  const getTrucks = async () => {
-    const res = await axiosIntance.get<ITruck[]>('/trucks');
-    console.log(res.data[0].id, "RES")
+  const getContainers = async () => {
+    const res = await axiosIntance.get('/containers');
+    console.log(res, "RES")
   }
   React.useEffect(() => {
-    getTrucks();
+    getContainers();
     console.log("VEHICLES")
   }, [])
   console.log(clientWidth, "WIDTH")

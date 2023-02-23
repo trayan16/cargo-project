@@ -72,12 +72,12 @@ export const Vehicles = () => {
   const [data, setData] = React.useState<any>("Not Found");
   const [start, setStart] = React.useState<boolean>(false);
   const { clientWidth } = useContext(WindowContext);
-  // const getVehicles = async () => {
-  //   const res = await axiosIntance.get('/trucks');
-  //   console.log(res, "RES")
-  // }
+  const getVehicles = async () => {
+    const res = await axiosIntance.get('/trucks');
+    console.log(res, "RES")
+  }
   React.useEffect(() => {
-    // getVehicles();
+    getVehicles();
     console.log("VEHICLES")
   }, [])
   console.log(clientWidth, "WIDTH")

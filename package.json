@@ -40,7 +40,6 @@
   "resolutions": {
     "styled-components": "^5"
   },
-  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": [
       "react-app",

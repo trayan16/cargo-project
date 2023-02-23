@@ -1,22 +1,17 @@
 import React, { useContext } from 'react';
 import { Chip } from "@mui/material";
 import Box from "@mui/material/Box";
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import axiosIntance from '../../axiosInstance';
-import BasicMenu from '../Vehicles/ActionMenu';
 const columns: GridColDef[] = [
   { 
-    field: 'model',
-    headerName: 'Vehicle',
+    field: 'username',
+    headerName: 'Username',
     flex: 1,
-    valueGetter: (params) => {
-        const {model} = params.row.vehicle
-        return model;
-      }
   },
-  { field: 'status', headerName: 'Status', flex: 1 },
+  { field: 'name', headerName: 'Name', flex: 1 },
   {
     field: 'origin',
     align: 'left',
@@ -27,47 +22,32 @@ const columns: GridColDef[] = [
     flex: 1
   },
   {
-    field: 'created',
-    headerName: 'Created',
-    flex: 1,
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 150
-  },
-  {
-    field: 'destination',
-    headerName: 'Destination',
+    field: 'lastLogin',
+    headerName: 'Last login',
     type: 'string'
   },
   {
-    field: 'date',
-    sortable: false,
+    field: 'role',
+    headerName: 'Role',
     flex: 1,
-    headerName: 'Documents',
-    renderCell: (params: GridRenderCellParams<Date>) => (
-      renderDetailsButton(params)
-    ),
+    sortable: false,
+    width: 150
   },
 ];
-const renderDetailsButton = (params: any) => {
-  return (
-      <BasicMenu />
-  )
-}
 const rows = [
-  { id: 1, status: 'Dispatched', vehicle: { model: "bmw"}, origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 1, username: 'admin', name: "Tsvetan Mitev", origin: "Texas", lastLogin: "01-02-2022", role: "Admin" },
 ];
-interface ITruck {
+interface IUser {
     id: string;
 }
-export const Trucks = () => {
+export const Users = () => {
   const { clientWidth } = useContext(WindowContext);
-  const getTrucks = async () => {
-    const res = await axiosIntance.get<ITruck[]>('/trucks');
-    console.log(res.data[0].id, "RES")
+  const getUsers = async () => {
+    const res = await axiosIntance.get<IUser[]>('/users');
+    console.log(res, "RES")
   }
   React.useEffect(() => {
-    getTrucks();
+    getUsers();
     console.log("VEHICLES")
   }, [])
   console.log(clientWidth, "WIDTH")
