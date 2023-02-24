@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +14,7 @@ import { Vehicles } from "./pages/Vehicles";
 import { Trucks } from "./pages/Trucks";
 import { Containers } from "./pages/Containers";
 import { Users } from "./pages/users";
+import { PaletteMode } from "@mui/material";
 const Wrapper = styled.section`
   display: flex;
   min-height: 100vh;
@@ -32,34 +33,30 @@ export const Themes = {
   DARK: 'dark',
   LIGHT: 'light'
 }
-const darkThemeMui = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-const lightThemeMui = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
+
 export const App = () => {
-  const [theme, setTheme] = useState<string>(localStorage.getItem('prefferDarkMode') === "1" ? Themes.DARK : Themes.LIGHT);
+  const [mode, setMode] = useState<PaletteMode>(localStorage.getItem('prefferDarkMode') === "1" ? 'dark' : 'light');
   const themeToggler = () => {
-    theme === Themes.LIGHT ? setTheme(Themes.DARK) : setTheme(Themes.LIGHT);
+    mode === Themes.LIGHT ? setMode('dark') : setMode('light');
   };
-  console.log(theme, "THEME");
+  const theme = useMemo(() =>
+    createTheme({
+      palette: {
+        mode,
+      },
+    }),[mode]);
   useEffect(() => {
-    localStorage.setItem('prefferDarkMode', (theme === Themes.DARK ?  1 : 0).toString())
-  }, [theme])
+    localStorage.setItem('prefferDarkMode', (mode === Themes.DARK ?  1 : 0).toString())
+  }, [mode])
   return (
-    <ThemeProvider theme={theme === Themes.LIGHT ? lightTheme : darkTheme}>
-      <MuiThemeProvider theme={theme === Themes.DARK ? darkThemeMui : lightThemeMui}>
+    <ThemeProvider theme={mode === Themes.LIGHT ? lightTheme : darkTheme}>
+      <MuiThemeProvider theme={theme}>
         <CssBaseline />
       <>
         <GlobalStyles />
         <Wrapper>
           <WindowContextProvider>
-            <Sidebar theme={theme} themeToggler={themeToggler} />
+            <Sidebar theme={mode} themeToggler={themeToggler} />
             <MainContainer>
               <Header />
               <Routes>

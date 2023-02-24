@@ -6,6 +6,13 @@ import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import BasicMenu from './ActionMenu';
 import axiosIntance from '../../axiosInstance';
+import styled from 'styled-components';
+import { VehicleDialog } from './VehicleDialog';
+const GridActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
   { field: 'status', headerName: 'Status', flex: 1 },
@@ -69,8 +76,11 @@ const rows = [
   { id: 12332, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
 ];
 export const Vehicles = () => {
-  const [data, setData] = React.useState<any>("Not Found");
-  const [start, setStart] = React.useState<boolean>(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleToggleOpen = () => {
+    setOpen(!open);
+  };
   const { clientWidth } = useContext(WindowContext);
   const getVehicles = async () => {
     const res = await axiosIntance.get('/trucks');
@@ -87,20 +97,19 @@ export const Vehicles = () => {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Button onClick={() => setStart(!start)}>Start</Button>
-      {start && (
-        "SHOW BARCODE SCANNER"
-      )}
-      
-      <p>{JSON.stringify(data)}</p>
-      <div style={{marginBottom: 20, display: "flex", gap: 10}}>
+      <GridActions>
+        <div>
         <Chip clickable onClick={handleClick} label="All" variant="outlined" />
         <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />
         <Chip clickable onClick={handleClick} label="At Terminal" variant="outlined" />
         <Chip clickable onClick={handleClick} label="Dispatched" variant="outlined" />
         <Chip clickable onClick={handleClick} label="Loaded" variant="outlined" />
-      </div>
-        <div style={{ height: 400, width: '100%' }}>
+        </div>
+        <div>
+          <VehicleDialog open={open} handleToggleOpen={handleToggleOpen} />
+        </div>
+      </GridActions>
+      <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         onSelectionModelChange={itm => console.log(itm)}
         components={{ Toolbar: GridToolbar }}
