@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import styled from "styled-components";
 import Tooltip from '@mui/material/Tooltip';
 import HomeIcon from '@mui/icons-material/Home';
-import SettingsIcon from '@mui/icons-material/Settings';
 import DirectionsBoatIcon from '@mui/icons-material/DirectionsBoat';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import LightModeIcon from '@mui/icons-material/LightMode';
@@ -15,6 +14,7 @@ import { Themes } from '../../App';
 import { useContext } from 'react';
 import { WindowContext } from '../../context/WindowContextProvider';
 import { mobileVersionWidth } from '../../utils';
+import { SettingsMenu } from '../SettingsMenu';
 const NavMenu = styled.div`
     display: flex;
     align-items: center;
@@ -121,9 +121,7 @@ const IconHolder = styled.div`
     return (
       <NavMenu style={{ cursor: 'pointer' }}>
           <Tooltip title="Settings">
-            <NavLink  to='/Settings'>
-              <SettingsIcon fontSize="medium" />
-            </NavLink>
+              <SettingsMenu />
           </Tooltip>
           <Tooltip style={{ cursor: 'pointer' }} onClick={themeToggler} title="Toggle dark mode">
             {theme === Themes.LIGHT ? <DarkModeIcon style={{ color: '#fff' }} fontSize="medium" /> : <LightModeIcon style={{ color: '#fff' }} fontSize="medium" />}

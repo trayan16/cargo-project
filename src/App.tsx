@@ -65,6 +65,7 @@ export const App = () => {
                 <Route path="/trucks" element={<Trucks />} />
                 <Route path="/containers" element={<Containers />} />
                 <Route path="/users" element={<Users />} />
+                <Route path="/settings" element={<Users />} />
               </Routes>
             </MainContainer>
           </WindowContextProvider>
