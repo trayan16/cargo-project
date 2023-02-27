@@ -36,6 +36,7 @@ export const Themes = {
 
 export const App = () => {
   const [mode, setMode] = useState<PaletteMode>(localStorage.getItem('prefferDarkMode') === "1" ? 'dark' : 'light');
+  console.log("APP COMPONENT")
   const themeToggler = () => {
     mode === Themes.LIGHT ? setMode('dark') : setMode('light');
   };

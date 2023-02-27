@@ -87,6 +87,9 @@ export const Trucks = () => {
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
+  const handleSubmit = (values: any) => {
+    console.info(values);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <GridActions>
@@ -102,7 +105,7 @@ export const Trucks = () => {
             Add Truck
           </Button>
           <CommonDialog title="Add Truck" open={open} handleToggleOpen={handleToggleOpen}>
-            <TruckForm />
+            <TruckForm handleSubmit={handleSubmit} />
           </CommonDialog>
         </div>
       </GridActions>
