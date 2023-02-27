@@ -8,7 +8,10 @@ import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
-
+import styled from 'styled-components';
+const DialogContainer = styled.div`
+  padding: 20px;
+`;
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement;
@@ -26,7 +29,6 @@ interface CommonDialogProps {
 export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleToggleOpen, children}) => {
 
   return (
-    <div>
       <Dialog
         fullWidth
         maxWidth="lg"
@@ -52,8 +54,10 @@ export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleTo
             </Button>
           </Toolbar>
         </AppBar>
-        {children}
+        <DialogContainer>
+          {children}
+        </DialogContainer>
       </Dialog>
-    </div>
+
   );
 }

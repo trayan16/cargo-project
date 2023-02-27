@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Button, Chip } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
@@ -9,6 +9,7 @@ import BasicMenu from '../Vehicles/ActionMenu';
 import { GridActions, TRUCK_STATUSES } from '../../utils';
 import { CommonDialog } from '../../components/CommonDialog';
 import { TruckForm } from './TruckForm';
+import { FormikProps } from 'formik';
 const columns: GridColDef[] = [
   { 
     field: 'status',
@@ -68,10 +69,13 @@ const rows: ITruck[] = [
   { id: "3", status: TRUCK_STATUSES.LOADED, plateNumber: "A2222AM", company: "Smart", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
 ];
 export const Trucks = () => {
+  const formRef = useRef<FormikProps<any>>(null);;
   const [open, setOpen] = React.useState(false);
   const { clientWidth } = useContext(WindowContext);
   
   const handleToggleOpen = () => {
+    console.log(formRef.current, "CURRENT")
+    formRef.current?.handleSubmit();
     setOpen(!open);
   };
   const getTrucks = async () => {
@@ -88,7 +92,7 @@ export const Trucks = () => {
     console.info('You clicked the Chip.');
   };
   const handleSubmit = (values: any) => {
-    console.info(values);
+    console.log("HELLO FROM SUBMIT", values)
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -105,7 +109,7 @@ export const Trucks = () => {
             Add Truck
           </Button>
           <CommonDialog title="Add Truck" open={open} handleToggleOpen={handleToggleOpen}>
-            <TruckForm handleSubmit={handleSubmit} />
+            <TruckForm formRef={formRef} handleSubmit={handleSubmit} />
           </CommonDialog>
         </div>
       </GridActions>
