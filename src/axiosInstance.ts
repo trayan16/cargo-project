@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosIntance = axios.create({
-    baseURL: 'http://work.eba-prvrng5h.us-east-1.elasticbeanstalk.com',
+    baseURL: 'https://lionfish-app-3tb5j.ondigitalocean.app',
     headers: {
         'Content-Type': 'application/json',
     },
