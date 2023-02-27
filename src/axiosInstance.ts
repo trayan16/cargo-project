@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosIntance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://work.eba-prvrng5h.us-east-1.elasticbeanstalk.com',
     headers: {
         'Content-Type': 'application/json',
     },

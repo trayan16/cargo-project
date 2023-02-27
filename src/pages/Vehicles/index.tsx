@@ -6,13 +6,10 @@ import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import BasicMenu from './ActionMenu';
 import axiosIntance from '../../axiosInstance';
-import styled from 'styled-components';
-import { VehicleDialog } from './VehicleDialog';
-const GridActions = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-`
+import { VehicleForm } from './VehicleForm';
+import { CommonDialog } from '../../components/CommonDialog';
+import { GridActions } from '../../utils';
+
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
   { field: 'status', headerName: 'Status', flex: 1 },
@@ -99,14 +96,19 @@ export const Vehicles = () => {
     <Box sx={{ flexGrow: 1 }}>
       <GridActions>
         <div>
-        <Chip clickable onClick={handleClick} label="All" variant="outlined" />
-        <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />
-        <Chip clickable onClick={handleClick} label="At Terminal" variant="outlined" />
-        <Chip clickable onClick={handleClick} label="Dispatched" variant="outlined" />
-        <Chip clickable onClick={handleClick} label="Loaded" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="All" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="At Terminal" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="Dispatched" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="Loaded" variant="outlined" />
         </div>
         <div>
-          <VehicleDialog open={open} handleToggleOpen={handleToggleOpen} />
+          <Button variant="contained" onClick={handleToggleOpen}>
+            Add Vehicle
+          </Button>
+          <CommonDialog title="Add Vehicle" open={open} handleToggleOpen={handleToggleOpen}>
+            <VehicleForm />
+          </CommonDialog>
         </div>
       </GridActions>
       <div style={{ height: 400, width: '100%' }}>

@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { Chip } from "@mui/material";
+import { Button, Chip } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import axiosIntance from '../../axiosInstance';
 import BasicMenu from '../Vehicles/ActionMenu';
-import { TRUCK_STATUSES } from '../../utils';
+import { GridActions, TRUCK_STATUSES } from '../../utils';
+import { CommonDialog } from '../../components/CommonDialog';
+import { TruckForm } from './TruckForm';
 const columns: GridColDef[] = [
   { 
     field: 'status',
@@ -66,7 +68,12 @@ const rows: ITruck[] = [
   { id: "3", status: TRUCK_STATUSES.LOADED, plateNumber: "A2222AM", company: "Smart", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
 ];
 export const Trucks = () => {
+  const [open, setOpen] = React.useState(false);
   const { clientWidth } = useContext(WindowContext);
+  
+  const handleToggleOpen = () => {
+    setOpen(!open);
+  };
   const getTrucks = async () => {
     const res = await axiosIntance.get<ITruck[]>('/trucks');
     console.log(res.data[0].id, "RES")
@@ -82,10 +89,23 @@ export const Trucks = () => {
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <div style={{marginBottom: 20, display: "flex", gap: 10}}>
-        <Chip clickable onClick={handleClick} label="Loaded" variant="outlined" />
-        <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />
-      </div>
+      <GridActions>
+        <div>
+          <Chip clickable onClick={handleClick} label="All" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="At Terminal" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="Dispatched" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="Loaded" variant="outlined" />
+        </div>
+        <div>
+          <Button variant="contained" onClick={handleToggleOpen}>
+            Add Truck
+          </Button>
+          <CommonDialog title="Add Truck" open={open} handleToggleOpen={handleToggleOpen}>
+            <TruckForm />
+          </CommonDialog>
+        </div>
+      </GridActions>
         <div style={{ height: 400, width: '100%' }}>
       <DataGrid
         onSelectionModelChange={itm => console.log(itm)}

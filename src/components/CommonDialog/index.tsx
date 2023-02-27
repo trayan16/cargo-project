@@ -17,19 +17,19 @@ const Transition = React.forwardRef(function Transition(
 ) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
-interface VehicleDialogProps {
+interface CommonDialogProps {
     handleToggleOpen: () => void;
+    children?: React.ReactNode
     open: boolean;
+    title?: string;
   }
-export const VehicleDialog: React.FC<VehicleDialogProps> = ({open, handleToggleOpen}) => {
+export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleToggleOpen, children}) => {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleToggleOpen}>
-        Add Vehicle
-      </Button>
       <Dialog
-        fullScreen
+        fullWidth
+        maxWidth="lg"
         open={open}
         onClose={handleToggleOpen}
         TransitionComponent={Transition}
@@ -45,13 +45,14 @@ export const VehicleDialog: React.FC<VehicleDialogProps> = ({open, handleToggleO
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-              Sound
+              {title}
             </Typography>
             <Button autoFocus color="inherit" onClick={handleToggleOpen}>
               save
             </Button>
           </Toolbar>
         </AppBar>
+        {children}
       </Dialog>
     </div>
   );

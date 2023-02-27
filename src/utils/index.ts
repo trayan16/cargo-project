@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 export const mobileVersionWidth = 900;
 export type IVehicleStatus = {
     [key: string]: string;
@@ -12,3 +13,8 @@ export enum TRUCK_STATUSES {
     "DISPATCHED" = "Dispatched",
     "DELIVERED" = "Delivered",
 }
+export const GridActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`
