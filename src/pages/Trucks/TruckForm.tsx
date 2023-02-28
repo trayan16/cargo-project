@@ -6,6 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import {Form, Formik } from "formik";
 import { Grid } from "@mui/material";
 import { ITruck } from ".";
+import { VehicleSelect } from "../../components/FormElements/VehicleSelect";
 interface TruckFormProps {
   handleToggleOpen?: () => void;
   handleSubmit: (values: any) => void;
@@ -42,6 +43,7 @@ export const TruckForm: React.FC<TruckFormProps> = ({
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <TextField
+                size="small"
                 InputLabelProps={{ shrink: true }}
                 fullWidth
                 id="plateNumber"
@@ -55,19 +57,7 @@ export const TruckForm: React.FC<TruckFormProps> = ({
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <Select
-                fullWidth
-                id="status"
-                name="status"
-                label="Status"
-                value={values.status}
-                onChange={handleChange}
-                error={touched.status && Boolean(errors.status)}
-              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select>
+              <VehicleSelect value={values.vehicles} />
             </Grid>
             <Grid item xs={12} md={6}>
               <Select
