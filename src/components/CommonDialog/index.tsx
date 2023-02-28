@@ -22,11 +22,12 @@ const Transition = React.forwardRef(function Transition(
 });
 interface CommonDialogProps {
     handleToggleOpen: () => void;
+    handleSubmit?: () => void;
     children?: React.ReactNode
     open: boolean;
     title?: string;
   }
-export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleToggleOpen, children}) => {
+export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleToggleOpen, children, handleSubmit}) => {
 
   return (
       <Dialog
@@ -49,8 +50,8 @@ export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleTo
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {title}
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleToggleOpen}>
-              save
+            <Button autoFocus color="inherit" onClick={handleSubmit}>
+              Save
             </Button>
           </Toolbar>
         </AppBar>

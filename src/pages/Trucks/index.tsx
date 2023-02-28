@@ -54,14 +54,14 @@ const renderDetailsButton = (params: any) => {
   )
 }
 
-interface ITruck {
-  id: string;
-  status: TRUCK_STATUSES,
-  plateNumber: string,
-  company: string,
-  expectedDate: string;
-  documents: string[];
-  vehicles: string[];
+export interface ITruck {
+  id?: string;
+  status?: TRUCK_STATUSES,
+  plateNumber?: string,
+  company?: string,
+  expectedDate?: string;
+  documents?: string[];
+  vehicles?: string[];
 }
 const rows: ITruck[] = [
   { id: "1", status: TRUCK_STATUSES.DELIVERED, plateNumber: "CB2222AM", company: "Vin Trade", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
@@ -74,7 +74,16 @@ export const Trucks = () => {
   const { clientWidth } = useContext(WindowContext);
   
   const handleToggleOpen = () => {
+    setOpen(!open);
+  };
+  const handleFormSubmit = () => {
+    const {current : form} = formRef;
     console.log(formRef.current, "CURRENT")
+    form?.validateForm();
+    if(!form?.isValid) {
+      form?.setErrors(form?.errors);
+      return;
+    }
     formRef.current?.handleSubmit();
     setOpen(!open);
   };
@@ -108,7 +117,7 @@ export const Trucks = () => {
           <Button variant="contained" onClick={handleToggleOpen}>
             Add Truck
           </Button>
-          <CommonDialog title="Add Truck" open={open} handleToggleOpen={handleToggleOpen}>
+          <CommonDialog title="Add Truck" open={open} handleSubmit={handleFormSubmit} handleToggleOpen={handleToggleOpen}>
             <TruckForm formRef={formRef} handleSubmit={handleSubmit} />
           </CommonDialog>
         </div>
