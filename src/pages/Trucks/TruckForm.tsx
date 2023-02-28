@@ -1,10 +1,13 @@
 import * as React from "react";
 import { object, string } from "yup";
 import TextField from "@mui/material/TextField";
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import {Form, Formik } from "formik";
-import { Grid } from "@mui/material";
+import Select from '@mui/material/Select';
+import { Form, Formik } from "formik";
+import { Button, Grid, MenuItem } from "@mui/material";
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ITruck } from ".";
 import { VehicleSelect } from "../../components/FormElements/VehicleSelect";
 interface TruckFormProps {
@@ -23,22 +26,24 @@ export const TruckForm: React.FC<TruckFormProps> = ({
   });
   const truckValues: ITruck = {};
   return (
-      <Formik
-        validationSchema={validationSchema}
-        enableReinitialize
-        innerRef={formRef}
-        initialValues={truckValues}
-        onSubmit={async (values) => {
-          handleSubmit(values);
-        }}
-      >
-        {({
-            values,
-            handleChange,
-            handleBlur,
-            touched,
-            errors,
-          }) => (
+    <Formik
+      validationSchema={validationSchema}
+      enableReinitialize
+      innerRef={formRef}
+      initialValues={truckValues}
+      onSubmit={async (values: ITruck) => {
+        handleSubmit(values);
+      }}
+    >
+
+      {({
+        values,
+        handleChange,
+        handleBlur,
+        setFieldValue,
+        touched,
+        errors,
+      }) => (
         <Form autoComplete='off'>
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
@@ -57,34 +62,76 @@ export const TruckForm: React.FC<TruckFormProps> = ({
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <VehicleSelect value={values.vehicles} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Select
+              
+              <TextField
+                select
+                size="small"
                 fullWidth
                 id="status"
                 name="status"
                 label="Status"
                 value={values.status}
                 onChange={handleChange}
-                error={touched.status && Boolean(errors.status)}
-              />
+                error={touched.status && Boolean(errors.status)}              >
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </TextField>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Select
-                  fullWidth
-                  id="status"
-                  name="status"
-                  label="Status"
-                  value={values.status}
-                  onChange={handleChange}
-                  error={touched.status && Boolean(errors.status)}
-                />
+            <TextField
+                select
+                size="small"
+                fullWidth
+                id="company"
+                name="company"
+                label="Truck Company"
+                value={values.company}
+                onChange={handleChange}
+                error={touched.company && Boolean(errors.company)}
+            ></TextField>
             </Grid>
+            <Grid item xs={12} md={6}>
+              <VehicleSelect value={values.vehicles} />
+            </Grid>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Grid item xs={12} md={6}>
+                <DesktopDatePicker
+                  // fullWidth
+                  label="Expected date"
+                  inputFormat="MM/DD/YYYY"
+                  value={values.expectedDate}
+                  onChange={(value) => {
+                    setFieldValue("expectedDate", value)
+                  }}
+
+                  renderInput={(params) => <TextField fullWidth size="small" {...params} />}
+                />
+                {/* <MobileDatePicker
+                  label="Expected date"
+                  inputFormat="MM/DD/YYYY"
+                  value={values.expectedDate}
+                  onChange={handleChange}
+                  renderInput={(params) => <TextField {...params} />}
+                /> */}
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Button
+                  variant="contained"
+                  component="label"
+                >
+                  Upload CMR
+                  <input
+                    type="file"
+                    hidden
+                  />
+                </Button>
+              </Grid>
+            </LocalizationProvider>
           </Grid>
         </Form>
-        )}
-      </Formik>
-      
+      )}
+    </Formik>
+
   );
 };

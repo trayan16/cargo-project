@@ -34,6 +34,7 @@ const vehicles: IVehicleSelect[] = [
   ];
   return (
 <Autocomplete
+      size="small"
       multiple
       id="checkboxes-tags-demo"
       options={vehicles}
