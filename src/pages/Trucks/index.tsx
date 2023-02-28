@@ -71,6 +71,7 @@ const rows: ITruck[] = [
 export const Trucks = () => {
   const formRef = useRef<FormikProps<any>>(null);;
   const [open, setOpen] = React.useState(false);
+  const [trucks, setTrucks] = React.useState<ITruck[]>([]);
   const { clientWidth } = useContext(WindowContext);
   
   const handleToggleOpen = () => {
@@ -89,7 +90,7 @@ export const Trucks = () => {
   };
   const getTrucks = async () => {
     const res = await axiosIntance.get<ITruck[]>('/trucks');
-    console.log(res.data[0].id, "RES")
+    setTrucks(res.data);
   }
   React.useEffect(() => {
     getTrucks();
@@ -133,7 +134,7 @@ export const Trucks = () => {
           },
         }}
         disableSelectionOnClick
-        rows={rows}
+        rows={trucks}
         columns={columns}
         pageSize={15}
         rowsPerPageOptions={[5, 10, 20, 50]}
