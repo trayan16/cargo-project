@@ -62,6 +62,9 @@ export const TruckForm: React.FC<TruckFormProps> = ({
               />
             </Grid>
             <Grid item xs={12} md={6}>
+              <VehicleSelect value={values.vehicles} />
+            </Grid>
+            <Grid item xs={12} md={6}>
               
               <TextField
                 select
@@ -90,9 +93,6 @@ export const TruckForm: React.FC<TruckFormProps> = ({
                 onChange={handleChange}
                 error={touched.company && Boolean(errors.company)}
             ></TextField>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <VehicleSelect value={values.vehicles} />
             </Grid>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Grid item xs={12} md={6}>

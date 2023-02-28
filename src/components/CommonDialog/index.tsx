@@ -40,6 +40,7 @@ export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleTo
         <AppBar sx={{ position: 'relative' }}>
           <Toolbar>
             <IconButton
+              sx={{ boxShadow: 3 }}
               edge="start"
               color="inherit"
               onClick={handleToggleOpen}
@@ -50,7 +51,7 @@ export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleTo
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
               {title}
             </Typography>
-            <Button autoFocus color="inherit" onClick={handleSubmit}>
+            <Button sx={{ boxShadow: 5 }} autoFocus color="inherit" onClick={handleSubmit}>
               Save
             </Button>
           </Toolbar>
