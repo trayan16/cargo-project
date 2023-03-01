@@ -63,8 +63,8 @@ const renderDetailsButton = (params: any) => {
   )
 }
 const rows: IContainer[] = [
-    { id: "1", status: TRUCK_STATUSES.DELIVERED, containerNumber: "CB2222AM", shippingLine: "Vin Trade", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
-    { id: "2", status: TRUCK_STATUSES.DISPATCHED, containerNumber: "B2222AM", shippingLine: "Alco Impex", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+    { id: "1", status: TRUCK_STATUSES.AVAILABLE, containerNumber: "CB2222AM", shippingLine: "Vin Trade", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
+    { id: "2", status: TRUCK_STATUSES.AVAILABLE, containerNumber: "B2222AM", shippingLine: "Alco Impex", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
     { id: "3", status: TRUCK_STATUSES.LOADED, containerNumber: "A2222AM", shippingLine: "Smart", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
   ];
 export const Containers = () => {

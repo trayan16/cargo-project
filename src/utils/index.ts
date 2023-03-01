@@ -9,9 +9,9 @@ export const VEHICLE_STATUSES: IVehicleStatus = {
     "DELIVERED" : "Delivered",
 }
 export enum TRUCK_STATUSES {
-    "LOADED" = "Loaded",
-    "DISPATCHED" = "Dispatched",
-    "DELIVERED" = "Delivered",
+    "LOADED" = "LOADED",
+    "AVAILABLE" = "AVAILABLE",
+    "ASSIGNED" = "ASSIGNED",
 }
 export const GridActions = styled.div`
   display: flex;

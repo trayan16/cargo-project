@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ITruck } from ".";
 import { VehicleSelect } from "../../components/FormElements/VehicleSelect";
+import { TRUCK_STATUSES } from "../../utils";
 interface TruckFormProps {
   handleToggleOpen?: () => void;
   handleSubmit: (values: any) => void;
@@ -24,7 +25,9 @@ export const TruckForm: React.FC<TruckFormProps> = ({
     plateNumber: string().required("Plate number is required"),
     status: string().required(),
   });
-  const truckValues: ITruck = {};
+  const truckValues: ITruck = {
+    vehicleIds: []
+  };
   return (
     <Formik
       validationSchema={validationSchema}
@@ -73,9 +76,9 @@ export const TruckForm: React.FC<TruckFormProps> = ({
                 value={values.status}
                 onChange={handleChange}
                 error={touched.status && Boolean(errors.status)}              >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                <MenuItem value={TRUCK_STATUSES.AVAILABLE}>{TRUCK_STATUSES.AVAILABLE}</MenuItem>
+                <MenuItem value={TRUCK_STATUSES.ASSIGNED}>{TRUCK_STATUSES.ASSIGNED}</MenuItem>
+                <MenuItem value={TRUCK_STATUSES.LOADED}>{TRUCK_STATUSES.LOADED}</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={12} md={6}>
@@ -92,7 +95,7 @@ export const TruckForm: React.FC<TruckFormProps> = ({
             ></TextField>
             </Grid>
             <Grid item xs={12} md={6}>
-              <VehicleSelect value={values.vehicles} />
+              <VehicleSelect value={values.vehicleIds} />
             </Grid>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Grid item xs={12} md={6}>

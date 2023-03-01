@@ -10,6 +10,7 @@ import { GridActions, TRUCK_STATUSES } from '../../utils';
 import { CommonDialog } from '../../components/CommonDialog';
 import { TruckForm } from './TruckForm';
 import { FormikProps } from 'formik';
+import dayjs from 'dayjs';
 const columns: GridColDef[] = [
   { 
     field: 'status',
@@ -18,7 +19,7 @@ const columns: GridColDef[] = [
   },
   { field: 'plateNumber', headerName: 'Plate number', flex: 1 },
   {
-    field: 'company',
+    field: 'truckCompany',
     align: 'left',
     headerAlign: 'left',
     headerName: 'Company',
@@ -31,7 +32,8 @@ const columns: GridColDef[] = [
     headerName: 'Expected date',
     flex: 1,
     sortable: false,
-    width: 150
+    width: 150,
+    valueFormatter: (params) => dayjs(params.value).format('DD/MM/YYYY'),
   },
   {
     field: 'documents',
@@ -39,18 +41,21 @@ const columns: GridColDef[] = [
     type: 'string'
   },
   {
+    headerAlign: 'center',
     field: 'vehicles',
     sortable: false,
-    flex: 1,
+    align: "center",
     headerName: 'Vehicles',
     renderCell: (params: GridRenderCellParams<Date>) => (
       renderDetailsButton(params)
     ),
   },
 ];
-const renderDetailsButton = (params: any) => {
+const renderDetailsButton = (params: GridRenderCellParams) => {
+  console.log(params, "PARAMS");
+  const { row: truckData } = params;
   return (
-      <BasicMenu />
+    truckData.vehicles && truckData.vehicles.length
   )
 }
 
@@ -61,16 +66,12 @@ export interface ITruck {
   company?: string,
   expectedDate?: string;
   documents?: string[];
-  vehicles?: string[];
+  vehicleIds?: string[];
 }
-const rows: ITruck[] = [
-  { id: "1", status: TRUCK_STATUSES.DELIVERED, plateNumber: "CB2222AM", company: "Vin Trade", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
-  { id: "2", status: TRUCK_STATUSES.DISPATCHED, plateNumber: "B2222AM", company: "Alco Impex", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
-  { id: "3", status: TRUCK_STATUSES.LOADED, plateNumber: "A2222AM", company: "Smart", expectedDate: "01-02-2022", documents: ["CRM"], vehicles: ["CRM"] },
-];
 export const Trucks = () => {
   const formRef = useRef<FormikProps<any>>(null);;
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [trucks, setTrucks] = React.useState<ITruck[]>([]);
   const { clientWidth } = useContext(WindowContext);
   
@@ -89,8 +90,10 @@ export const Trucks = () => {
     setOpen(!open);
   };
   const getTrucks = async () => {
+    setLoading(true);
     const res = await axiosIntance.get<ITruck[]>('/trucks');
     setTrucks(res.data);
+    setLoading(false);
   }
   React.useEffect(() => {
     getTrucks();
@@ -101,8 +104,11 @@ export const Trucks = () => {
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
-  const handleSubmit = (values: any) => {
-    console.log("HELLO FROM SUBMIT", values)
+  const handleSubmit = async (values: ITruck) => {
+    setLoading(true);
+    await axiosIntance.post<ITruck>('/trucks', {...values});
+    await getTrucks();
+    setLoading(false);
   };
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -125,6 +131,7 @@ export const Trucks = () => {
       </GridActions>
         <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        loading={loading}
         onSelectionModelChange={itm => console.log(itm)}
         components={{ Toolbar: GridToolbar }}
         componentsProps={{

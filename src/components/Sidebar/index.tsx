@@ -29,6 +29,7 @@ const NavMenu = styled.div`
 `;
 const SidebarContainer = styled.section`
     width: 70px;
+    height: 95vh;
     background-image: linear-gradient(to top,#1d1e20,#043bc7);
     border-radius: 26px;
     padding: 30px 16px;
@@ -38,6 +39,7 @@ const SidebarContainer = styled.section`
     justify-content: space-between;
     flex-direction: column;
     @media screen and (max-width: ${mobileVersionWidth}px) {
+      height: auto;
       border-radius: 0;
       position: sticky;
       top: 0;
