@@ -15,6 +15,7 @@ import { Trucks } from "./pages/Trucks";
 import { Containers } from "./pages/Containers";
 import { Users } from "./pages/users";
 import { PaletteMode } from "@mui/material";
+import { LoginDialog } from "./components/LoginDialog";
 const Wrapper = styled.section`
   display: flex;
   min-height: 100vh;
@@ -51,6 +52,8 @@ export const App = () => {
   }, [mode])
   return (
     <ThemeProvider theme={mode === Themes.LIGHT ? lightTheme : darkTheme}>
+      <LoginDialog />
+
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
       <>
