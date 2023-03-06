@@ -37,7 +37,7 @@ export const CommonDialog: React.FC<CommonDialogProps> = ({open, title, handleTo
         onClose={handleToggleOpen}
         TransitionComponent={Transition}
       >
-        <AppBar sx={{ position: 'relative' }}>
+        <AppBar  sx={{ position: 'relative' }}>
           <Toolbar>
             <IconButton
               sx={{ boxShadow: 3 }}
