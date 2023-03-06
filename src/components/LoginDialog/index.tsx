@@ -4,6 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
+import { LoginForm } from "./LoginForm";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -41,7 +42,7 @@ export const LoginDialog = () => {
       "aria-controls": `full-width-tabpanel-${index}`,
     };
   };
-  const handleClose = (event: {}, reason: "backdropClick" | "escapeKeyDown") => {
+  const handleClose = () => {
     setOpen(false);
   };
   return (
@@ -57,7 +58,7 @@ export const LoginDialog = () => {
         <Tab label="Search vehicle" {...a11yProps(1)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        Login
+        <LoginForm handleDialogClose={handleClose} />
       </TabPanel>
       <TabPanel value={value} index={1}>
         Search
