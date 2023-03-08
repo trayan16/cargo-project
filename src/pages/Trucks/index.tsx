@@ -5,14 +5,14 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import axiosIntance from '../../axiosInstance';
-import BasicMenu from '../Vehicles/ActionMenu';
 import { GridActions, TRUCK_STATUSES } from '../../utils';
 import { CommonDialog } from '../../components/CommonDialog';
 import { TruckForm } from './TruckForm';
 import { FormikProps } from 'formik';
 import dayjs from 'dayjs';
+import { ActionMenu } from '../../components/BasicTable/ActionMenu';
 const columns: GridColDef[] = [
-  { 
+  {
     field: 'status',
     headerName: 'Status',
     flex: 1,
@@ -24,7 +24,7 @@ const columns: GridColDef[] = [
     headerAlign: 'left',
     headerName: 'Company',
     type: 'string',
-    
+
     flex: 1
   },
   {
@@ -36,11 +36,6 @@ const columns: GridColDef[] = [
     valueFormatter: (params) => dayjs(params.value).format('DD/MM/YYYY'),
   },
   {
-    field: 'documents',
-    headerName: 'Documents',
-    type: 'string'
-  },
-  {
     headerAlign: 'center',
     field: 'vehicles',
     sortable: false,
@@ -50,7 +45,23 @@ const columns: GridColDef[] = [
       renderDetailsButton(params)
     ),
   },
+  {
+    field: 'date',
+    sortable: false,
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    headerName: 'Actions',
+    renderCell: (params: GridRenderCellParams<Date>) => (
+      renderActionsMenu(params)
+    ),
+  },
 ];
+const renderActionsMenu = (params: GridRenderCellParams) => {
+  return (
+    <ActionMenu />
+  )
+}
 const renderDetailsButton = (params: GridRenderCellParams) => {
   console.log(params, "PARAMS");
   const { row: truckData } = params;
@@ -74,15 +85,15 @@ export const Trucks = () => {
   const [loading, setLoading] = React.useState(false);
   const [trucks, setTrucks] = React.useState<ITruck[]>([]);
   const { clientWidth } = useContext(WindowContext);
-  
+
   const handleToggleOpen = () => {
     setOpen(!open);
   };
   const handleFormSubmit = () => {
-    const {current : form} = formRef;
+    const { current: form } = formRef;
     console.log(formRef.current, "CURRENT")
     form?.validateForm();
-    if(!form?.isValid) {
+    if (!form?.isValid) {
       form?.setErrors(form?.errors);
       return;
     }
@@ -100,13 +111,13 @@ export const Trucks = () => {
     console.log("VEHICLES")
   }, [])
   console.log(clientWidth, "WIDTH")
-  
+
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
   const handleSubmit = async (values: ITruck) => {
     setLoading(true);
-    await axiosIntance.post<ITruck>('/trucks', {...values});
+    await axiosIntance.post<ITruck>('/trucks', { ...values });
     await getTrucks();
     setLoading(false);
   };
@@ -129,25 +140,25 @@ export const Trucks = () => {
           </CommonDialog>
         </div>
       </GridActions>
-        <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        loading={loading}
-        onSelectionModelChange={itm => console.log(itm)}
-        components={{ Toolbar: GridToolbar }}
-        componentsProps={{
-          toolbar: {
-            showQuickFilter: true,
-            quickFilterProps: { debounceMs: 500 },
-          },
-        }}
-        disableSelectionOnClick
-        rows={trucks}
-        columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[5, 10, 20, 50]}
-        checkboxSelection
-      />
-    </div>
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+          loading={loading}
+          onSelectionModelChange={itm => console.log(itm)}
+          components={{ Toolbar: GridToolbar }}
+          componentsProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 500 },
+            },
+          }}
+          disableSelectionOnClick
+          rows={trucks}
+          columns={columns}
+          pageSize={15}
+          rowsPerPageOptions={[5, 10, 20, 50]}
+          checkboxSelection
+        />
+      </div>
     </Box>
   );
 };

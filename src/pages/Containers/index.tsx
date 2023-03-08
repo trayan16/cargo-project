@@ -5,10 +5,10 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
 import axiosIntance from '../../axiosInstance';
-import BasicMenu from '../Vehicles/ActionMenu';
 import { GridActions, TRUCK_STATUSES } from '../../utils';
 import { CommonDialog } from '../../components/CommonDialog';
 import { ContainerForm } from './ContainerForm';
+import { ActionMenu } from '../../components/BasicTable/ActionMenu';
 const columns: GridColDef[] = [
   { 
     field: 'status',
@@ -34,17 +34,23 @@ const columns: GridColDef[] = [
     width: 150
   },
   {
-    field: 'documents',
-    headerName: 'Documents',
-    type: 'string'
-  },
-  {
     field: 'vehicles',
     sortable: false,
     flex: 1,
     headerName: 'Loaded vehicles',
     renderCell: () => (
         Math.floor(Math.random() * 10)
+    ),
+  },
+  {
+    field: 'date',
+    sortable: false,
+    flex: 1,
+    headerAlign: "center",
+    align: "center",
+    headerName: 'Actions',
+    renderCell: (params: GridRenderCellParams<Date>) => (
+      renderDetailsButton(params)
     ),
   },
 ];
@@ -59,7 +65,7 @@ interface IContainer {
   }
 const renderDetailsButton = (params: any) => {
   return (
-      <BasicMenu />
+      <ActionMenu />
   )
 }
 const rows: IContainer[] = [

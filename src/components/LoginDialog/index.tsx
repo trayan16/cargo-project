@@ -5,6 +5,8 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import { LoginForm } from "./LoginForm";
+import { useTheme } from "styled-components";
+import { DialogContent } from "@mui/material";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -47,22 +49,22 @@ export const LoginDialog = () => {
   };
   return (
     <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        textColor="inherit"
-        variant="fullWidth"
-        aria-label="full width tabs example"
-      >
-        <Tab label="Login" {...a11yProps(0)} />
-        <Tab label="Search vehicle" {...a11yProps(1)} />
-      </Tabs>
-      <TabPanel value={value} index={0}>
-        <LoginForm handleDialogClose={handleClose} />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Search
-      </TabPanel>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="inherit"
+          variant="fullWidth"
+          aria-label="full width tabs example"
+        >
+          <Tab label="Login" {...a11yProps(0)} />
+          <Tab label="Search vehicle" {...a11yProps(1)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          <LoginForm handleDialogClose={handleClose} />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Search
+        </TabPanel>
     </Dialog>
   );
 };

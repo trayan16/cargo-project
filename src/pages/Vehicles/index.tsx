@@ -4,11 +4,11 @@ import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { GridToolbar } from "@mui/x-data-grid/components";
 import { WindowContext } from "../../context/WindowContextProvider";
-import BasicMenu from './ActionMenu';
 import axiosIntance from '../../axiosInstance';
 import { VehicleForm } from './VehicleForm';
 import { CommonDialog } from '../../components/CommonDialog';
 import { GridActions } from '../../utils';
+import { ActionMenu } from '../../components/BasicTable/ActionMenu';
 
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
@@ -39,7 +39,9 @@ const columns: GridColDef[] = [
     field: 'date',
     sortable: false,
     flex: 1,
-    headerName: 'Documents',
+    headerAlign: "center",
+    align: "center",
+    headerName: 'Actions',
     renderCell: (params: GridRenderCellParams<Date>) => (
       renderDetailsButton(params)
     ),
@@ -47,7 +49,7 @@ const columns: GridColDef[] = [
 ];
 const renderDetailsButton = (params: any) => {
   return (
-      <BasicMenu />
+      <ActionMenu />
   )
 }
 const rows = [
