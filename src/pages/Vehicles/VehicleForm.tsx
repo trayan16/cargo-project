@@ -76,7 +76,9 @@ export const VehicleForm: React.FC<VehicleFormProps> = ({
             </Grid>
             <Grid item xs={12} md={6}>
               <FormControlLabel
-                control={<Checkbox defaultChecked />}
+                control={<Checkbox style={{
+                  transform: "scale(1.2)",
+              }} size="medium" defaultChecked />}
                 label="Keys Present"
               />
             </Grid>

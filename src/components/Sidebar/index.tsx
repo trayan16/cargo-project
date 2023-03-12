@@ -30,7 +30,7 @@ const NavMenu = styled.div`
 const SidebarContainer = styled.section`
     width: 70px;
     height: 95vh;
-    background-image: linear-gradient(to top,#1d1e20,#043bc7);
+    background-image: linear-gradient(to top,#1d1e20,#1976d2);
     border-radius: 26px;
     padding: 30px 16px;
     text-align: center;
