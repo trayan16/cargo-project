@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { Button, Chip } from "@mui/material";
 import Box from "@mui/material/Box";
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
@@ -9,6 +9,7 @@ import { VehicleForm } from './VehicleForm';
 import { CommonDialog } from '../../components/CommonDialog';
 import { GridActions } from '../../utils';
 import { ActionMenu } from '../../components/BasicTable/ActionMenu';
+import { FormikProps } from 'formik';
 
 const columns: GridColDef[] = [
   { field: 'vehicle', headerName: 'Vehicle', flex: 1, },
@@ -59,23 +60,25 @@ const rows = [
   { id: 4, status: 'Dispatched', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 5, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 6, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 7, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 8, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 7, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 8, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 123, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 45, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 675, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 686, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 675, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 686, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 123123, status: 'Delivered', vehicle: 'VW GOLF GTI 2020', origin: "Texas", created: "01-02-2022", destination: "Hamburg" },
   { id: 1236, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Dubai" },
-  { id: 67, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 865, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 67, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 865, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 23423, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
   { id: 123, status: 'Delivered', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 454, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
-  { id: 12332, status: 'At Terminal', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 454, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
+  { id: 12332, status: 'AT_TERMINAL', vehicle: 'BMW X3 2020', origin: "Texas", created: "01-02-2022", destination: "Rotterdam" },
 ];
 export const Vehicles = () => {
-  const [open, setOpen] = React.useState(false);
+  const formRef = useRef<FormikProps<any>>(null);
+  const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleToggleOpen = () => {
     setOpen(!open);
@@ -94,13 +97,19 @@ export const Vehicles = () => {
   const handleClick = () => {
     console.info('You clicked the Chip.');
   };
+  const handleSubmit = async (values: any) => {
+    setLoading(true);
+    await axiosIntance.post<any>('/vehicles', { ...values });
+    await getVehicles();
+    setLoading(false);
+  };
   return (
     <Box sx={{ flexGrow: 1 }}>
       <GridActions>
         <div>
           <Chip clickable onClick={handleClick} label="All" variant="outlined" />
           <Chip clickable onClick={handleClick} label="Delivered" variant="outlined" />
-          <Chip clickable onClick={handleClick} label="At Terminal" variant="outlined" />
+          <Chip clickable onClick={handleClick} label="AT_TERMINAL" variant="outlined" />
           <Chip clickable onClick={handleClick} label="Dispatched" variant="outlined" />
           <Chip clickable onClick={handleClick} label="Loaded" variant="outlined" />
         </div>
@@ -109,12 +118,13 @@ export const Vehicles = () => {
             Add Vehicle
           </Button>
           <CommonDialog title="Add Vehicle" open={open} handleToggleOpen={handleToggleOpen}>
-            <VehicleForm />
+            <VehicleForm formRef={formRef} handleSubmit={handleSubmit} />
           </CommonDialog>
         </div>
       </GridActions>
       <div style={{ height: 400, width: '100%' }}>
       <DataGrid
+        loading={loading}
         onSelectionModelChange={itm => console.log(itm)}
         components={{ Toolbar: GridToolbar }}
         componentsProps={{

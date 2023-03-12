@@ -10,7 +10,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ITruck } from ".";
 import { VehicleSelect } from "../../components/FormElements/VehicleSelect";
 import { TRUCK_STATUSES } from "../../utils";
-import { ThemeContext } from "../../context/theme-context";
 interface TruckFormProps {
   handleToggleOpen?: () => void;
   handleSubmit: (values: any) => void;

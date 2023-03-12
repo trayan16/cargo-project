@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 export const mobileVersionWidth = 900;
-export type IVehicleStatus = {
-    [key: string]: string;
+export enum VehicleStatus {
+  'TRANSIT',
+  'LOADED',
+  'AT TERMINAL',
+  'UNLOADED',
+  'LOADED ON THE TRUCK',
+  'FINAL DESTINATION',
 }
-export const VEHICLE_STATUSES: IVehicleStatus = {
-    "AT_TERMINAL" : "At Terminal",
-    "DISPATCHED" : "Dispatched",
-    "DELIVERED" : "Delivered",
-}
+type ReverseMap<T> = T[keyof T];
+export type VehicleStatusType = ReverseMap<typeof VehicleStatus>;
 export enum TRUCK_STATUSES {
     "LOADED" = "LOADED",
     "AVAILABLE" = "AVAILABLE",

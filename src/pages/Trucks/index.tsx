@@ -80,7 +80,7 @@ export interface ITruck {
   vehicleIds?: string[];
 }
 export const Trucks = () => {
-  const formRef = useRef<FormikProps<any>>(null);;
+  const formRef = useRef<FormikProps<any>>(null);
   const [open, setOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [trucks, setTrucks] = React.useState<ITruck[]>([]);

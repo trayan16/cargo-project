@@ -7,7 +7,7 @@ import {
 import { WindowContext } from "../../context/WindowContextProvider";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import { VEHICLE_STATUSES } from "../../utils";
+import { VehicleStatus, VehicleStatusType } from "../../utils";
 import styled from "styled-components";
 const MessagesComponent = styled.div`
   .unread {
@@ -22,7 +22,7 @@ export interface IMessage {
   id: number;
   vehicle: string;
   vin: string;
-  message: string;
+  message: any;
   date: string;
   unread: boolean;
 }
@@ -31,7 +31,7 @@ const rows: IMessage[] = [
     id: 1,
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
-    message: "AT_TERMINAL",
+    message: VehicleStatus["AT TERMINAL"],
     date: "19-02-2023 11:45AM",
     unread: true,
   },
@@ -39,7 +39,7 @@ const rows: IMessage[] = [
     id: 2,
     vehicle: "VW GOLF 2020",
     vin: "JH4NA1261PT000302",
-    message: "DELIVERED",
+    message: VehicleStatus["FINAL DESTINATION"],
     date: "19-02-2023 11:45AM",
     unread: false,
   },
@@ -47,7 +47,7 @@ const rows: IMessage[] = [
     id: 3,
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
-    message: "DELIVERED",
+    message: VehicleStatus["FINAL DESTINATION"],
     date: "19-02-2023 11:45AM",
     unread: false,
   },
@@ -55,7 +55,7 @@ const rows: IMessage[] = [
     id: 4,
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
-    message: "DELIVERED",
+    message: VehicleStatus["FINAL DESTINATION"],
     date: "19-02-2023 11:45AM",
     unread: false,
   },
@@ -63,7 +63,7 @@ const rows: IMessage[] = [
     id: 5,
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
-    message: "DELIVERED",
+    message: VehicleStatus["FINAL DESTINATION"],
     date: "19-02-2023 11:45AM",
     unread: false,
   },
@@ -71,15 +71,14 @@ const rows: IMessage[] = [
     id: 6,
     vehicle: "BMW X3 2020",
     vin: "JH4NA1261PT000302",
-    message: "DELIVERED",
+    message: VehicleStatus["FINAL DESTINATION"],
     date: "22-02-2023 11:45AM",
     unread: false,
   },
 ];
 export const Messages: React.FC<MessagesProps> = ({ open, onClose }) => {
-  const { clientWidth } = useContext(WindowContext);
-  const renderVehicleStatus = (status: string) => {
-    return `Vehicle status was changed to ${VEHICLE_STATUSES[status]}`;
+  const renderVehicleStatus = (status: VehicleStatusType) => {
+    return `Vehicle status was changed to ${VehicleStatus[status]}`;
   };
   const columns: GridColDef[] = [
     { field: "date", headerName: "Date/Time", flex: 1, type: "date", width: 200 },
@@ -97,7 +96,7 @@ export const Messages: React.FC<MessagesProps> = ({ open, onClose }) => {
       type: "string",
       width: 300,
       renderCell: (params: GridRenderCellParams) => {
-        const status: string = params.value;
+        const status: VehicleStatusType = params.value;
         return renderVehicleStatus(status);
       },
     },
