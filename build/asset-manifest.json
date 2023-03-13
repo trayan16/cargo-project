@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4dfe99c1.css",
+    "main.js": "/static/js/main.a9ea18c6.js",
+    "static/js/787.a138ceea.chunk.js": "/static/js/787.a138ceea.chunk.js",
+    "static/media/Anton-Regular.ttf": "/static/media/Anton-Regular.170b842f9a8cd6150a0d.ttf",
+    "index.html": "/index.html",
+    "main.4dfe99c1.css.map": "/static/css/main.4dfe99c1.css.map",
+    "main.a9ea18c6.js.map": "/static/js/main.a9ea18c6.js.map",
+    "787.a138ceea.chunk.js.map": "/static/js/787.a138ceea.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4dfe99c1.css",
+    "static/js/main.a9ea18c6.js"
+  ]
+}
