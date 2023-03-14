@@ -4,18 +4,19 @@ import TextField from "@mui/material/TextField";
 import { Form, Formik } from "formik";
 import { Button, Grid, MenuItem } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import Divider from "@mui/material/Divider";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { VehicleStatus } from "../../utils";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import { FormDivider } from "../../components/styled/FormDivider";
 interface VehicleFormProps {
   handleToggleOpen?: () => void;
   handleSubmit: (values: any) => void;
   open?: boolean;
   formRef: any;
 }
+
 export const VehicleForm: React.FC<VehicleFormProps> = ({
   formRef,
   handleSubmit,
@@ -57,7 +58,7 @@ export const VehicleForm: React.FC<VehicleFormProps> = ({
         errors,
       }) => (
         <Form autoComplete="off">
-          <Divider variant="fullWidth">Main Information</Divider>
+          <FormDivider variant="fullWidth">Main Information</FormDivider>
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <TextField
@@ -95,7 +96,7 @@ export const VehicleForm: React.FC<VehicleFormProps> = ({
               ></TextField>
             </Grid>
           </Grid>
-          <Divider variant="fullWidth">Auction Information</Divider>
+          <FormDivider variant="fullWidth">Auction Information</FormDivider>
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <TextField
@@ -156,7 +157,7 @@ export const VehicleForm: React.FC<VehicleFormProps> = ({
               </TextField>
             </Grid>
           </Grid>
-          <Divider variant="fullWidth">Shipping Information</Divider>
+          <FormDivider variant="fullWidth">Shipping Information</FormDivider>
           <Grid container spacing={4}>
             <Grid item xs={12} md={6}>
               <TextField

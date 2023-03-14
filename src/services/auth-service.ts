@@ -41,6 +41,7 @@ export const login = ({email, password}: ILoginProps) => {
 
 export const logout = () => {
   localStorage.removeItem("user");
+  window.location.reload();
 };
 
 export const getCurrentUser = () => {
