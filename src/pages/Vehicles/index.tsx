@@ -85,7 +85,7 @@ export const Vehicles = () => {
   };
   const { clientWidth } = useContext(WindowContext);
   const getVehicles = async () => {
-    const res = await axiosIntance.get('/trucks');
+    const res = await axiosIntance.get('/vehicles');
     console.log(res, "RES")
   }
   React.useEffect(() => {

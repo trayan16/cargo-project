@@ -5,8 +5,6 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import Dialog from "@mui/material/Dialog";
 import { LoginForm } from "./LoginForm";
-import { useTheme } from "styled-components";
-import { DialogContent } from "@mui/material";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;

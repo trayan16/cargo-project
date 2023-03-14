@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosIntance = axios.create({
     // baseURL: 'https://lionfish-app-3tb5j.ondigitalocean.app',
-    baseURL: 'http://localhost:5000',
+    baseURL: 'http://138.68.87.111:5000',
     headers: {
         'Content-Type': 'application/json',
     },

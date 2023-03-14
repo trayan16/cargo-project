@@ -42,10 +42,13 @@ export const Themes = {
 
 export const App = () => {
   const { user, login } = useAuth();
+  console.log(user, "USER");
+  const [openLogin, setOpenLogin] = useState<boolean>(true);
   const [mode, setMode] = useState<PaletteMode>(
     localStorage.getItem("prefferDarkMode") === "1" ? "dark" : "light"
   );
-  const setUser = useCallback(() => {
+  const setUser = useCallback((userData: any) => {
+    console.log(userData, "USER DATA")
       login({
         id: "1",
         email: "trayanstyoanov@abv.bg",
@@ -53,7 +56,7 @@ export const App = () => {
       })
   }, [login])
   useEffect(() => {
-    setUser()
+    setUser({})
   }, [setUser])
 
   const themeToggler = () => {
