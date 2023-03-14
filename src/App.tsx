@@ -47,17 +47,13 @@ export const App = () => {
   const [mode, setMode] = useState<PaletteMode>(
     localStorage.getItem("prefferDarkMode") === "1" ? "dark" : "light"
   );
-  const setUser = useCallback((userData: any) => {
-    console.log(userData, "USER DATA")
-      login({
-        id: "1",
-        email: "trayanstyoanov@abv.bg",
-        name: "trayan"
-      })
-  }, [login])
+  const setUser = useCallback(() => {
+      if(user)
+      login(user)
+  }, [login, user])
   useEffect(() => {
-    setUser({})
-  }, [setUser])
+    setUser()
+  }, [setUser, user])
 
   const themeToggler = () => {
     mode === Themes.LIGHT ? setMode("dark") : setMode("light");
@@ -80,9 +76,8 @@ export const App = () => {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <ThemeProvider theme={mode === Themes.LIGHT ? lightTheme : darkTheme}>
-        <LoginDialog />
-
         <MuiThemeProvider theme={theme}>
+        <LoginDialog />
           <CssBaseline />
           <>
             <GlobalStyles />

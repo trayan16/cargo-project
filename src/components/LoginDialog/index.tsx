@@ -3,13 +3,18 @@ import Typography from "@mui/material/Typography";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
+import Dialog, { DialogProps } from "@mui/material/Dialog";
 import { LoginForm } from "./LoginForm";
+import styled from "styled-components";
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
 }
+const BlurryDialog = styled(Dialog)<DialogProps>(({ theme }) => ({
+  backdropFilter: "blur(5px)",
+  // other styles here...
+}));
 export const LoginDialog = () => {
   const [open, setOpen] = React.useState<boolean>(true);
   const [value, setValue] = React.useState(0);
@@ -43,10 +48,10 @@ export const LoginDialog = () => {
     };
   };
   const handleClose = () => {
-    setOpen(false);
+    return false;
   };
   return (
-    <Dialog onClose={handleClose} open={open} fullWidth maxWidth="md">
+    <BlurryDialog  onClose={handleClose} open={open} fullWidth maxWidth="md">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -58,11 +63,11 @@ export const LoginDialog = () => {
           <Tab label="Search vehicle" {...a11yProps(1)} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <LoginForm handleDialogClose={handleClose} />
+          <LoginForm setOpenDialog={setOpen} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           Search
         </TabPanel>
-    </Dialog>
+    </BlurryDialog>
   );
 };
