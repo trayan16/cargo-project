@@ -9,24 +9,8 @@ import { AxiosError } from "axios";
 import { Form, Formik } from "formik";
 import { useState } from "react";
 import { object, string } from "yup";
-import axiosIntance from "../../axiosInstance";
-import { useUser } from "../../hooks/useUser";
+import { ILoginProps, login } from "../../services/auth-service";
 
-function parseJwt(token: string) {
-  var base64Url = token.split(".")[1];
-  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  var jsonPayload = decodeURIComponent(
-    window
-      .atob(base64)
-      .split("")
-      .map(function (c) {
-        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join("")
-  );
-
-  return JSON.parse(jsonPayload);
-}
 interface LoginFormProps {
   setOpenDialog: (value: boolean) => void;
 }
@@ -34,19 +18,11 @@ const validationSchema = object({
   email: string().required("Username is required"),
   password: string().required("Password is required"),
 });
-export const LoginForm: React.FC<LoginFormProps> = ({ setOpenDialog }) => {
-  const { login } = useUser();
+export const LoginForm: React.FC<LoginFormProps> = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const handleLogin = async (values: any) => {
+  const handleLogin = async (values: ILoginProps) => {
     try {
-      const response = await axiosIntance.post<{ accessToken: string }>(
-        "/auth/signin",
-        { ...values }
-      );
-      const { accessToken } = response.data;
-      login(parseJwt(accessToken));
-      window.location.reload();
-      console.log(parseJwt(accessToken), "PARSED");
+      await login({...values});
     } catch (error: any) {
       if (error instanceof AxiosError) {
         console.log(error, "AXIOS ERROR");

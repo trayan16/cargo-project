@@ -19,8 +19,7 @@ import { Containers } from "./pages/Containers";
 import { Users } from "./pages/users";
 import { PaletteMode } from "@mui/material";
 import { LoginDialog } from "./components/LoginDialog";
-import { AuthContext } from "./context/AuthContext";
-import { useAuth } from "./hooks/useAuth";
+import { getCurrentUser } from "./services/auth-service";
 const Wrapper = styled.section`
   display: flex;
   min-height: 100vh;
@@ -41,20 +40,10 @@ export const Themes = {
 };
 
 export const App = () => {
-  const { user, login } = useAuth();
-  console.log(user, "USER");
-  const [openLogin, setOpenLogin] = useState<boolean>(true);
+  const user = getCurrentUser();
   const [mode, setMode] = useState<PaletteMode>(
     localStorage.getItem("prefferDarkMode") === "1" ? "dark" : "light"
   );
-  const setUser = useCallback(() => {
-      if(user)
-      login(user)
-  }, [login, user])
-  useEffect(() => {
-    setUser()
-  }, [setUser, user])
-
   const themeToggler = () => {
     mode === Themes.LIGHT ? setMode("dark") : setMode("light");
   };
@@ -74,10 +63,9 @@ export const App = () => {
     );
   }, [mode]);
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
       <ThemeProvider theme={mode === Themes.LIGHT ? lightTheme : darkTheme}>
         <MuiThemeProvider theme={theme}>
-        <LoginDialog />
+        {!user && <LoginDialog />}
           <CssBaseline />
           <>
             <GlobalStyles />
@@ -100,6 +88,5 @@ export const App = () => {
           </>
         </MuiThemeProvider>
       </ThemeProvider>
-    </AuthContext.Provider>
   );
 };
